@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-01-20T16:09:27+08:00</updated><entry><title>finally I moved to Mac</title><link href="http://xiaojianfeng.github.io/general/finally-i-moved-to-mac.html" rel="alternate"></link><updated>2015-01-20T16:09:27+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-01-20:general/finally-i-moved-to-mac.html</id><summary type="html">&lt;p&gt;2014年年底，用了七年多的在最后一年从Windows转向Linux的T61因为nvidia显卡门报废，决定换成Mac了。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-02-23T22:39:54+08:00</updated><entry><title>finally I moved to Mac</title><link href="http://xiaojianfeng.github.io/general/finally-i-moved-to-mac.html" rel="alternate"></link><updated>2015-01-20T16:09:27+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-01-20:general/finally-i-moved-to-mac.html</id><summary type="html">&lt;p&gt;2014年年底，用了七年多的在最后一年从Windows转向Linux的T61因为nvidia显卡门报废，决定换成Mac了。&lt;/p&gt;
 &lt;p&gt;理由很简单，我用电脑主要用来办公和编程。Windows因为有MS Office，办公不错，但是编程(包括数据处理)方面太差；Linux在编程方面很好，但是办公方面就是渣:只有Mac可以兼顾二者。&lt;/p&gt;</summary></entry><entry><title>create shortcurt key for ksnapshot</title><link href="http://xiaojianfeng.github.io/code/create-shortcurt-key-for-ksnapshot.html" rel="alternate"></link><updated>2014-08-14T23:27:51+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-14:code/create-shortcurt-key-for-ksnapshot.html</id><summary type="html">&lt;p&gt;ksnapshot is a powerful tool to take snapshot. However, each time you have to start ksnapshot from the application menu, which is not as efficient as it should be.&lt;/p&gt;
 &lt;p&gt;Here is how to create shortcut key for ksnapshot.&lt;/p&gt;
 &lt;ul&gt;
@@ -96,7 +96,7 @@ select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fa
 paired-end reads, one read is on forward stand, and the other one is on reverse strand.
 So one of them should be mapped to another strand (reverse complement).&lt;/p&gt;
 &lt;p&gt;In bam2fq.sh, the first reads are extracted from .bam unchanged. The second reads are all converted to reverse complement with command "tr 'ATGC' 'TACG' | rev".&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh"&gt;bam2fq.sh&lt;/a&gt; is updated.&lt;/p&gt;</summary></entry><entry><title>create blog on github pages with pelican</title><link href="http://xiaojianfeng.github.io/code/create-blog-on-github-pages-with-pelican.html" rel="alternate"></link><updated>2014-08-05T23:40:15+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:code/create-blog-on-github-pages-with-pelican.html</id><summary type="html">&lt;ol&gt;
+&lt;p&gt;&lt;a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh"&gt;bam2fq.sh&lt;/a&gt; is updated.&lt;/p&gt;</summary></entry><entry><title>create blog on github pages with pelican</title><link href="http://xiaojianfeng.github.io/code/create-blog-on-github-pages-with-pelican.html" rel="alternate"></link><updated>2015-02-23T22:39:54+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:code/create-blog-on-github-pages-with-pelican.html</id><summary type="html">&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;install pelican, ghp-import, and of course git&lt;/p&gt;
 &lt;/li&gt;
@@ -108,40 +108,47 @@ So one of them should be mapped to another strand (reverse complement).&lt;/p&gt
 &lt;p&gt;$ mkdir technotes &lt;br /&gt;
 $ cd technotes &lt;br /&gt;
 $ pelican-quickstart &lt;br /&gt;
-Welcome to pelican-quickstart v3.5.0.&lt;/p&gt;
-&lt;p&gt;This script will help you create a new Pelican-based website.&lt;/p&gt;
-&lt;p&gt;Please answer the following questions so this script can generate the files
-needed by Pelican.&lt;/p&gt;
+Welcome to pelican-quickstart v3.5.0.  &lt;/p&gt;
+&lt;p&gt;This script will help you create a new Pelican-based website.  &lt;/p&gt;
+&lt;p&gt;Please answer the following questions so this script can generate the files&lt;br /&gt;
+needed by Pelican.  &lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Where do you want to create your new web site? [.] 
-What will be the title of this web site? Tech Notes
-Who will be the author of this web site? Xiao Jianfeng
-What will be the default language of this web site? [en] 
-Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) &lt;br /&gt;
-What is your URL prefix? (see above example; no trailing slash) http://xiaojianfeng.github.io
-Do you want to enable article pagination? (Y/n) 
-How many articles per page do you want? [10] 20
-Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) 
-Do you want an auto-reload &amp;amp; simpleHTTP script to assist with theme and site development? (Y/n) 
-Do you want to upload your website using FTP? (y/N) 
-Do you want to upload your website using SSH? (y/N) 
-Do you want to upload your website using Dropbox? (y/N) 
-Do you want to upload your website using S3? (y/N) 
-Do you want to upload your website using Rackspace Cloud Files? (y/N) 
-Do you want to upload your website using GitHub Pages? (y/N) y
-Is this your personal page (username.github.io)? (y/N) y
-Done. Your new project is available at /path/to/technotes&lt;/p&gt;
+&lt;p&gt;Where do you want to create your new web site? [.] &lt;br /&gt;
+What will be the title of this web site? Tech Notes&lt;br /&gt;
+Who will be the author of this web site? Xiao Jianfeng&lt;br /&gt;
+What will be the default language of this web site? [en] &lt;br /&gt;
+Do you want to specify a URL prefix? e.g., http://example.com   (Y/n)   &lt;br /&gt;
+What is your URL prefix? (see above example; no trailing slash) http://xiaojianfeng.github.io&lt;br /&gt;
+Do you want to enable article pagination? (Y/n) &lt;br /&gt;
+How many articles per page do you want? [10] 20&lt;br /&gt;
+Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) &lt;br /&gt;
+Do you want an auto-reload &amp;amp; simpleHTTP script to assist with theme and site development? (Y/n) &lt;br /&gt;
+Do you want to upload your website using FTP? (y/N) &lt;br /&gt;
+Do you want to upload your website using SSH? (y/N) &lt;br /&gt;
+Do you want to upload your website using Dropbox? (y/N) &lt;br /&gt;
+Do you want to upload your website using S3? (y/N) &lt;br /&gt;
+Do you want to upload your website using Rackspace Cloud Files? (y/N) &lt;br /&gt;
+Do you want to upload your website using GitHub Pages? (y/N) y&lt;br /&gt;
+Is this your personal page (username.github.io)? (y/N) y&lt;br /&gt;
+Done. Your new project is available at /path/to/technotes  &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;initalize git repo in directory on local harddisk&lt;/p&gt;
-&lt;p&gt;$ cd technotes
-$ git remote add origin https://github.com:XiaoJianfeng/xiaojianfeng.github.io.git   &lt;/p&gt;
+&lt;p&gt;$ cd technotes&lt;br /&gt;
+$ git remote add origin https://github.com:XiaoJianfeng/xiaojianfeng.github.io.git   &lt;br /&gt;
+$ git pull origin master     &lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;start to write blog with markdown, and then run "make github"&lt;/p&gt;
 &lt;p&gt;$ vim content/first_post.md  # and write something &lt;br /&gt;
 $ make github   &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;add the following to ~/.gitconfig, so you will not to be asked to input password everytime, and you can use multiple accounts with multiple repositories.&lt;/p&gt;
+&lt;p&gt;[credential]&lt;br /&gt;
+    helper = osxkeychain&lt;br /&gt;
+    useHttpPath = true  &lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;</summary></entry><entry><title>first post</title><link href="http://xiaojianfeng.github.io/general/first-post.html" rel="alternate"></link><updated>2014-08-05T22:23:19+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:general/first-post.html</id><summary type="html">&lt;p&gt;Aftering having tried several blog platforms, finally I switched to github.&lt;/p&gt;
 &lt;p&gt;This blog will be the host of my tech notes.&lt;/p&gt;</summary></entry></feed>
