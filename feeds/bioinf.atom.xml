@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/bioinf.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2014-08-06T20:16:55+08:00</updated><entry><title>convert bam file to fastq</title><link href="http://xiaojianfeng.github.io/bioinf/convert-bam-file-to-fastq.html" rel="alternate"></link><updated>2014-08-06T20:16:55+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-06:bioinf/convert-bam-file-to-fastq.html</id><summary type="html">&lt;p&gt;After having struggled for a while to find a convenient tool to extract .fastq file to .bam file, I decided to write one.&lt;/p&gt;
+&lt;p&gt;The problems with current tools are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Couldn't deal with reads having multiple match in .bam file.&lt;/li&gt;
+&lt;li&gt;Some tools require the .bam to be sorted by name first.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In my program (https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh), Sqlite3 is used to do the heavy job. Below is the details of how to do it:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;"samtools view" read .bam file and output to stdout.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sqlite3 create a table fastq with 4 columns (qname, flag, seq, qual), and import data from stdout to the table with sqlite3 command ".import".
+CREATE TABLE fastq (qname, flag, seq, qual);&lt;/p&gt;
+&lt;p&gt;select date()||" "||time()||" import begin";&lt;br /&gt;
+.separator "\t"&lt;br /&gt;
+.import temp.$$ fastq 
+CREATE INDEX qname_idx on fastq (qname);   &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sqlite3 creat two tables, "left" and "right", and get qname of read_1 and read_2 to these two tables separately. whether a read is the first read or second read is identified by checking the flag. 0x40 is set for first read, while 0x80 is set for second read.&lt;/p&gt;
+&lt;p&gt;CREATE TABLE left as select qname from fastq where flag &amp;amp; 64 == 64;&lt;br /&gt;
+CREATE TABLE right as select qname from fastq where flag &amp;amp; 128 == 128;  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;select reads from table "fastq" that are the first in the pair, and has corresponding mate pair in table "right"; and select reads from table "fastq" that are the second in the pair, and has corresponding mate pair in table "left". "\n" is used as separator between columns, and the output is redirected to .fastq file.&lt;/p&gt;
+&lt;p&gt;.output ${left_file}&lt;br /&gt;
+.separator "\n"&lt;br /&gt;
+select distinct "@"||right.qname||"/1", seq, '+', qual from right join fastq on fastq.qname == right.qname where flag&amp;amp;64 == 64 order by right.qname;  &lt;/p&gt;
+&lt;p&gt;.output ${right_file}&lt;br /&gt;
+.separator "\n"&lt;br /&gt;
+select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fastq.qname == left.qname where flag&amp;amp;128 == 128 order by left.qname;  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;job done.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;With my program, the .bam file doesn't need to be sorted beforehand.&lt;/p&gt;
+&lt;p&gt;It has one limition: the output .fastq files are not compressed. I will remove this limition later when I have time. But please rest assured it works perfectly well at the moment.&lt;/p&gt;
+&lt;h2&gt;[update 2014-08-11 22:33:09]:&lt;/h2&gt;
+&lt;h3&gt;fixed a bug regarding identification of first and second read in a pair by flags&lt;/h3&gt;
+&lt;p&gt;the primary alignment should have flag &amp;amp; 0x900 == 0, first read has flag &amp;amp; 0x40 == 0x40, and second read has flag &amp;amp; 0x80 == 0x80&lt;/p&gt;
+&lt;p&gt;so primary alignment of first read should be flag &amp;amp; 0x940 (ie. 2368) == 0x40, and for second read flag &amp;amp; 0x980 (ie. 2432) == 0x80&lt;/p&gt;
+&lt;p&gt;CREATE TABLE left as select qname from fastq where flag &amp;amp; 2368 == 64; &lt;br /&gt;
+   CREATE TABLE right as select qname from fastq where flag &amp;amp; 2432 == 128;       &lt;/p&gt;
+&lt;h3&gt;bam2fq.sh is updated to support gziped output.&lt;/h3&gt;
+&lt;p&gt;details of the implementation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;first creat named pipe&lt;/p&gt;
+&lt;p&gt;mkfifo tmp_output&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;use gzip to compress the content read from named pipe, and put the process into background&lt;/p&gt;
+&lt;p&gt;gzip -c &amp;lt; tmp_output &amp;gt; output.fq.gz &amp;amp;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;in sqlite3, output to to named pipe&lt;/p&gt;
+&lt;p&gt;.output tmp_output
+[SELECT ...]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;it is possible to set .output to a pipe from within sqlite3,&lt;/p&gt;
+&lt;p&gt;.output '| gzip -c &amp;gt; output.fq.gz'
+[SELECT ...]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;[2014-08-12 21:14:52]&lt;/h2&gt;
+&lt;h3&gt;the task is more complicated than I have expected. here is another bug&lt;/h3&gt;
+&lt;p&gt;The sequences in .bam file for two reads of a pair are on the same strand. However, for 
+paired-end reads, one read is on forward stand, and the other one is on reverse strand.
+So one of them should be mapped to another strand (reverse complement).&lt;/p&gt;
+&lt;p&gt;In bam2fq.sh, the first reads are extracted from .bam unchanged. The second reads are all converted to reverse complement with command "tr 'ATGC' 'TACG' | rev".&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh"&gt;bam2fq.sh&lt;/a&gt; is updated.&lt;/p&gt;</summary></entry></feed>

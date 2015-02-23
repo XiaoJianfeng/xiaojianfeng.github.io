@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>create blog on github pages with pelican</title>
+        <meta charset="utf-8" />
+        <link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Full Atom Feed" />
+        <link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/pygment.css" />
+
+        <script src="http://xiaojianfeng.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="http://xiaojianfeng.github.io/">Tech Notes <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="http://xiaojianfeng.github.io/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="http://xiaojianfeng.github.io/code/create-blog-on-github-pages-with-pelican.html" rel="bookmark"
+                   title="Permalink to create blog on github pages with pelican">create blog on github pages with pelican</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2014-08-05T23:40:15+08:00">
+                Tue 05 August 2014
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <ol>
+<li>
+<p>install pelican, ghp-import, and of course git</p>
+</li>
+<li>
+<p>create a github repo: xiaojianfeng.github.io, and choose to not initalize with a README.md.</p>
+</li>
+<li>
+<p>create a directory "technotes", cd into this directory and run "pelican-quickstart"</p>
+<p>$ mkdir technotes <br />
+$ cd technotes <br />
+$ pelican-quickstart <br />
+Welcome to pelican-quickstart v3.5.0.</p>
+<p>This script will help you create a new Pelican-based website.</p>
+<p>Please answer the following questions so this script can generate the files
+needed by Pelican.</p>
+<blockquote>
+<p>Where do you want to create your new web site? [.] 
+What will be the title of this web site? Tech Notes
+Who will be the author of this web site? Xiao Jianfeng
+What will be the default language of this web site? [en] 
+Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) <br />
+What is your URL prefix? (see above example; no trailing slash) http://xiaojianfeng.github.io
+Do you want to enable article pagination? (Y/n) 
+How many articles per page do you want? [10] 20
+Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) 
+Do you want an auto-reload &amp; simpleHTTP script to assist with theme and site development? (Y/n) 
+Do you want to upload your website using FTP? (y/N) 
+Do you want to upload your website using SSH? (y/N) 
+Do you want to upload your website using Dropbox? (y/N) 
+Do you want to upload your website using S3? (y/N) 
+Do you want to upload your website using Rackspace Cloud Files? (y/N) 
+Do you want to upload your website using GitHub Pages? (y/N) y
+Is this your personal page (username.github.io)? (y/N) y
+Done. Your new project is available at /path/to/technotes</p>
+</blockquote>
+</li>
+<li>
+<p>initalize git repo in directory on local harddisk</p>
+<p>$ cd technotes
+$ git remote add origin https://github.com:XiaoJianfeng/xiaojianfeng.github.io.git   </p>
+</li>
+<li>
+<p>start to write blog with markdown, and then run "make github"</p>
+<p>$ vim content/first_post.md  # and write something <br />
+$ make github   </p>
+</li>
+</ol>
+            </div><!-- /.entry-content -->
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="http://xiaojianfeng.github.io/category/bioinf.html">bioinf</a></li>
+		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
+		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+    <li><a href="https://github.com/xiaojianfeng">github</a></li>
+    <li><a href="#">Another social link</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/plugins.js"></script>
+</body>
+</html>

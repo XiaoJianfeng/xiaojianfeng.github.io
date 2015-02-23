@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>convert bam file to fastq</title>
+        <meta charset="utf-8" />
+        <link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Full Atom Feed" />
+        <link href="http://xiaojianfeng.github.io/feeds/bioinf.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/pygment.css" />
+
+        <script src="http://xiaojianfeng.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="http://xiaojianfeng.github.io/">Tech Notes <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="http://xiaojianfeng.github.io/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="http://xiaojianfeng.github.io/bioinf/convert-bam-file-to-fastq.html" rel="bookmark"
+                   title="Permalink to convert bam file to fastq">convert bam file to fastq</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2014-08-06T20:16:55+08:00">
+                Wed 06 August 2014
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>After having struggled for a while to find a convenient tool to extract .fastq file to .bam file, I decided to write one.</p>
+<p>The problems with current tools are:</p>
+<ul>
+<li>Couldn't deal with reads having multiple match in .bam file.</li>
+<li>Some tools require the .bam to be sorted by name first.</li>
+</ul>
+<p>In my program (https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh), Sqlite3 is used to do the heavy job. Below is the details of how to do it:</p>
+<ol>
+<li>
+<p>"samtools view" read .bam file and output to stdout.</p>
+</li>
+<li>
+<p>Sqlite3 create a table fastq with 4 columns (qname, flag, seq, qual), and import data from stdout to the table with sqlite3 command ".import".
+CREATE TABLE fastq (qname, flag, seq, qual);</p>
+<p>select date()||" "||time()||" import begin";<br />
+.separator "\t"<br />
+.import temp.$$ fastq 
+CREATE INDEX qname_idx on fastq (qname);   </p>
+</li>
+<li>
+<p>Sqlite3 creat two tables, "left" and "right", and get qname of read_1 and read_2 to these two tables separately. whether a read is the first read or second read is identified by checking the flag. 0x40 is set for first read, while 0x80 is set for second read.</p>
+<p>CREATE TABLE left as select qname from fastq where flag &amp; 64 == 64;<br />
+CREATE TABLE right as select qname from fastq where flag &amp; 128 == 128;  </p>
+</li>
+<li>
+<p>select reads from table "fastq" that are the first in the pair, and has corresponding mate pair in table "right"; and select reads from table "fastq" that are the second in the pair, and has corresponding mate pair in table "left". "\n" is used as separator between columns, and the output is redirected to .fastq file.</p>
+<p>.output ${left_file}<br />
+.separator "\n"<br />
+select distinct "@"||right.qname||"/1", seq, '+', qual from right join fastq on fastq.qname == right.qname where flag&amp;64 == 64 order by right.qname;  </p>
+<p>.output ${right_file}<br />
+.separator "\n"<br />
+select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fastq.qname == left.qname where flag&amp;128 == 128 order by left.qname;  </p>
+</li>
+<li>
+<p>job done.</p>
+</li>
+</ol>
+<p>With my program, the .bam file doesn't need to be sorted beforehand.</p>
+<p>It has one limition: the output .fastq files are not compressed. I will remove this limition later when I have time. But please rest assured it works perfectly well at the moment.</p>
+<h2>[update 2014-08-11 22:33:09]:</h2>
+<h3>fixed a bug regarding identification of first and second read in a pair by flags</h3>
+<p>the primary alignment should have flag &amp; 0x900 == 0, first read has flag &amp; 0x40 == 0x40, and second read has flag &amp; 0x80 == 0x80</p>
+<p>so primary alignment of first read should be flag &amp; 0x940 (ie. 2368) == 0x40, and for second read flag &amp; 0x980 (ie. 2432) == 0x80</p>
+<p>CREATE TABLE left as select qname from fastq where flag &amp; 2368 == 64; <br />
+   CREATE TABLE right as select qname from fastq where flag &amp; 2432 == 128;       </p>
+<h3>bam2fq.sh is updated to support gziped output.</h3>
+<p>details of the implementation:</p>
+<ul>
+<li>
+<p>first creat named pipe</p>
+<p>mkfifo tmp_output</p>
+</li>
+<li>
+<p>use gzip to compress the content read from named pipe, and put the process into background</p>
+<p>gzip -c &lt; tmp_output &gt; output.fq.gz &amp;</p>
+</li>
+<li>
+<p>in sqlite3, output to to named pipe</p>
+<p>.output tmp_output
+[SELECT ...]</p>
+</li>
+<li>
+<p>it is possible to set .output to a pipe from within sqlite3,</p>
+<p>.output '| gzip -c &gt; output.fq.gz'
+[SELECT ...]</p>
+</li>
+</ul>
+<h2>[2014-08-12 21:14:52]</h2>
+<h3>the task is more complicated than I have expected. here is another bug</h3>
+<p>The sequences in .bam file for two reads of a pair are on the same strand. However, for 
+paired-end reads, one read is on forward stand, and the other one is on reverse strand.
+So one of them should be mapped to another strand (reverse complement).</p>
+<p>In bam2fq.sh, the first reads are extracted from .bam unchanged. The second reads are all converted to reverse complement with command "tr 'ATGC' 'TACG' | rev".</p>
+<p><a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh">bam2fq.sh</a> is updated.</p>
+            </div><!-- /.entry-content -->
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="http://xiaojianfeng.github.io/category/bioinf.html">bioinf</a></li>
+		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
+		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+    <li><a href="https://github.com/xiaojianfeng">github</a></li>
+    <li><a href="#">Another social link</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/plugins.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-01-20T16:09:27+08:00</updated><entry><title>finally I moved to Mac</title><link href="http://xiaojianfeng.github.io/general/finally-i-moved-to-mac.html" rel="alternate"></link><updated>2015-01-20T16:09:27+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-01-20:general/finally-i-moved-to-mac.html</id><summary type="html">&lt;p&gt;2014年年底，用了七年多的在最后一年从Windows转向Linux的T61因为nvidia显卡门报废，决定换成Mac了。&lt;/p&gt;
+&lt;p&gt;理由很简单，我用电脑主要用来办公和编程。Windows因为有MS Office，办公不错，但是编程(包括数据处理)方面太差；Linux在编程方面很好，但是办公方面就是渣:只有Mac可以兼顾二者。&lt;/p&gt;</summary></entry><entry><title>create shortcurt key for ksnapshot</title><link href="http://xiaojianfeng.github.io/code/create-shortcurt-key-for-ksnapshot.html" rel="alternate"></link><updated>2014-08-14T23:27:51+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-14:code/create-shortcurt-key-for-ksnapshot.html</id><summary type="html">&lt;p&gt;ksnapshot is a powerful tool to take snapshot. However, each time you have to start ksnapshot from the application menu, which is not as efficient as it should be.&lt;/p&gt;
+&lt;p&gt;Here is how to create shortcut key for ksnapshot.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;go to "System Settings" --&amp;gt; "Shortcuts and Gestures" --&amp;gt; "Custom Shortcuts"
+   --&amp;gt; "Preset Actions" --&amp;gt; "PrintScreen"&lt;/p&gt;
+&lt;p&gt;set "Meta + S" (Win + S), which is the same as screen clipping shortcut for onenote on Windows, for Trigger;
+   &lt;img alt="set shotcut key" src="/images/ksnapshot1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;and set "ksnapshot --region" as "Command/URL" for Action. Here I prefer the default behavior to take screenshot of rectangel area. You can just use "ksnapshot" if you like.
+   &lt;img alt="set command" src="/images/ksnapshot2.png" /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That's all. Now you can just press "Win + S" and select a rectangle region to take a screenshot.&lt;/p&gt;</summary></entry><entry><title>install Chinese input method on T61 running Debian</title><link href="http://xiaojianfeng.github.io/code/install-chinese-input-method-on-t61-running-debian.html" rel="alternate"></link><updated>2014-08-13T22:39:27+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-13:code/install-chinese-input-method-on-t61-running-debian.html</id><summary type="html">&lt;p&gt;Now it is much eaiser to install Chinese input method than before.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install task-chinese-s-kde-desktop fcitx-pinyin&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Go to "Settings" --&amp;gt; "System Settings" --&amp;gt; "Local" --&amp;gt; "Input Method" --&amp;gt; "Input Method"
+   --&amp;gt; add "Pinyin" from "Available Input Method" to "Current Input Method". &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Uncheck "Only Show Current Language" if "Pinyin" is not shown in "Available Input Method".&lt;/p&gt;
+&lt;p&gt;That's all. You will be able to use "Ctrl + Space" to use Chinese input method.&lt;/p&gt;</summary></entry><entry><title>convert bam file to fastq</title><link href="http://xiaojianfeng.github.io/bioinf/convert-bam-file-to-fastq.html" rel="alternate"></link><updated>2014-08-06T20:16:55+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-06:bioinf/convert-bam-file-to-fastq.html</id><summary type="html">&lt;p&gt;After having struggled for a while to find a convenient tool to extract .fastq file to .bam file, I decided to write one.&lt;/p&gt;
+&lt;p&gt;The problems with current tools are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Couldn't deal with reads having multiple match in .bam file.&lt;/li&gt;
+&lt;li&gt;Some tools require the .bam to be sorted by name first.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In my program (https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh), Sqlite3 is used to do the heavy job. Below is the details of how to do it:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;"samtools view" read .bam file and output to stdout.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sqlite3 create a table fastq with 4 columns (qname, flag, seq, qual), and import data from stdout to the table with sqlite3 command ".import".
+CREATE TABLE fastq (qname, flag, seq, qual);&lt;/p&gt;
+&lt;p&gt;select date()||" "||time()||" import begin";&lt;br /&gt;
+.separator "\t"&lt;br /&gt;
+.import temp.$$ fastq 
+CREATE INDEX qname_idx on fastq (qname);   &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sqlite3 creat two tables, "left" and "right", and get qname of read_1 and read_2 to these two tables separately. whether a read is the first read or second read is identified by checking the flag. 0x40 is set for first read, while 0x80 is set for second read.&lt;/p&gt;
+&lt;p&gt;CREATE TABLE left as select qname from fastq where flag &amp;amp; 64 == 64;&lt;br /&gt;
+CREATE TABLE right as select qname from fastq where flag &amp;amp; 128 == 128;  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;select reads from table "fastq" that are the first in the pair, and has corresponding mate pair in table "right"; and select reads from table "fastq" that are the second in the pair, and has corresponding mate pair in table "left". "\n" is used as separator between columns, and the output is redirected to .fastq file.&lt;/p&gt;
+&lt;p&gt;.output ${left_file}&lt;br /&gt;
+.separator "\n"&lt;br /&gt;
+select distinct "@"||right.qname||"/1", seq, '+', qual from right join fastq on fastq.qname == right.qname where flag&amp;amp;64 == 64 order by right.qname;  &lt;/p&gt;
+&lt;p&gt;.output ${right_file}&lt;br /&gt;
+.separator "\n"&lt;br /&gt;
+select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fastq.qname == left.qname where flag&amp;amp;128 == 128 order by left.qname;  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;job done.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;With my program, the .bam file doesn't need to be sorted beforehand.&lt;/p&gt;
+&lt;p&gt;It has one limition: the output .fastq files are not compressed. I will remove this limition later when I have time. But please rest assured it works perfectly well at the moment.&lt;/p&gt;
+&lt;h2&gt;[update 2014-08-11 22:33:09]:&lt;/h2&gt;
+&lt;h3&gt;fixed a bug regarding identification of first and second read in a pair by flags&lt;/h3&gt;
+&lt;p&gt;the primary alignment should have flag &amp;amp; 0x900 == 0, first read has flag &amp;amp; 0x40 == 0x40, and second read has flag &amp;amp; 0x80 == 0x80&lt;/p&gt;
+&lt;p&gt;so primary alignment of first read should be flag &amp;amp; 0x940 (ie. 2368) == 0x40, and for second read flag &amp;amp; 0x980 (ie. 2432) == 0x80&lt;/p&gt;
+&lt;p&gt;CREATE TABLE left as select qname from fastq where flag &amp;amp; 2368 == 64; &lt;br /&gt;
+   CREATE TABLE right as select qname from fastq where flag &amp;amp; 2432 == 128;       &lt;/p&gt;
+&lt;h3&gt;bam2fq.sh is updated to support gziped output.&lt;/h3&gt;
+&lt;p&gt;details of the implementation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;first creat named pipe&lt;/p&gt;
+&lt;p&gt;mkfifo tmp_output&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;use gzip to compress the content read from named pipe, and put the process into background&lt;/p&gt;
+&lt;p&gt;gzip -c &amp;lt; tmp_output &amp;gt; output.fq.gz &amp;amp;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;in sqlite3, output to to named pipe&lt;/p&gt;
+&lt;p&gt;.output tmp_output
+[SELECT ...]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;it is possible to set .output to a pipe from within sqlite3,&lt;/p&gt;
+&lt;p&gt;.output '| gzip -c &amp;gt; output.fq.gz'
+[SELECT ...]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;[2014-08-12 21:14:52]&lt;/h2&gt;
+&lt;h3&gt;the task is more complicated than I have expected. here is another bug&lt;/h3&gt;
+&lt;p&gt;The sequences in .bam file for two reads of a pair are on the same strand. However, for 
+paired-end reads, one read is on forward stand, and the other one is on reverse strand.
+So one of them should be mapped to another strand (reverse complement).&lt;/p&gt;
+&lt;p&gt;In bam2fq.sh, the first reads are extracted from .bam unchanged. The second reads are all converted to reverse complement with command "tr 'ATGC' 'TACG' | rev".&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh"&gt;bam2fq.sh&lt;/a&gt; is updated.&lt;/p&gt;</summary></entry><entry><title>create blog on github pages with pelican</title><link href="http://xiaojianfeng.github.io/code/create-blog-on-github-pages-with-pelican.html" rel="alternate"></link><updated>2014-08-05T23:40:15+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:code/create-blog-on-github-pages-with-pelican.html</id><summary type="html">&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;install pelican, ghp-import, and of course git&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create a github repo: xiaojianfeng.github.io, and choose to not initalize with a README.md.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create a directory "technotes", cd into this directory and run "pelican-quickstart"&lt;/p&gt;
+&lt;p&gt;$ mkdir technotes &lt;br /&gt;
+$ cd technotes &lt;br /&gt;
+$ pelican-quickstart &lt;br /&gt;
+Welcome to pelican-quickstart v3.5.0.&lt;/p&gt;
+&lt;p&gt;This script will help you create a new Pelican-based website.&lt;/p&gt;
+&lt;p&gt;Please answer the following questions so this script can generate the files
+needed by Pelican.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Where do you want to create your new web site? [.] 
+What will be the title of this web site? Tech Notes
+Who will be the author of this web site? Xiao Jianfeng
+What will be the default language of this web site? [en] 
+Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) &lt;br /&gt;
+What is your URL prefix? (see above example; no trailing slash) http://xiaojianfeng.github.io
+Do you want to enable article pagination? (Y/n) 
+How many articles per page do you want? [10] 20
+Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) 
+Do you want an auto-reload &amp;amp; simpleHTTP script to assist with theme and site development? (Y/n) 
+Do you want to upload your website using FTP? (y/N) 
+Do you want to upload your website using SSH? (y/N) 
+Do you want to upload your website using Dropbox? (y/N) 
+Do you want to upload your website using S3? (y/N) 
+Do you want to upload your website using Rackspace Cloud Files? (y/N) 
+Do you want to upload your website using GitHub Pages? (y/N) y
+Is this your personal page (username.github.io)? (y/N) y
+Done. Your new project is available at /path/to/technotes&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;initalize git repo in directory on local harddisk&lt;/p&gt;
+&lt;p&gt;$ cd technotes
+$ git remote add origin https://github.com:XiaoJianfeng/xiaojianfeng.github.io.git   &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;start to write blog with markdown, and then run "make github"&lt;/p&gt;
+&lt;p&gt;$ vim content/first_post.md  # and write something &lt;br /&gt;
+$ make github   &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary></entry><entry><title>first post</title><link href="http://xiaojianfeng.github.io/general/first-post.html" rel="alternate"></link><updated>2014-08-05T22:23:19+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:general/first-post.html</id><summary type="html">&lt;p&gt;Aftering having tried several blog platforms, finally I switched to github.&lt;/p&gt;
+&lt;p&gt;This blog will be the host of my tech notes.&lt;/p&gt;</summary></entry></feed>

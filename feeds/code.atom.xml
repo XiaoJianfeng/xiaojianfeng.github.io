@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2014-08-14T23:27:51+08:00</updated><entry><title>create shortcurt key for ksnapshot</title><link href="http://xiaojianfeng.github.io/code/create-shortcurt-key-for-ksnapshot.html" rel="alternate"></link><updated>2014-08-14T23:27:51+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-14:code/create-shortcurt-key-for-ksnapshot.html</id><summary type="html">&lt;p&gt;ksnapshot is a powerful tool to take snapshot. However, each time you have to start ksnapshot from the application menu, which is not as efficient as it should be.&lt;/p&gt;
+&lt;p&gt;Here is how to create shortcut key for ksnapshot.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;go to "System Settings" --&amp;gt; "Shortcuts and Gestures" --&amp;gt; "Custom Shortcuts"
+   --&amp;gt; "Preset Actions" --&amp;gt; "PrintScreen"&lt;/p&gt;
+&lt;p&gt;set "Meta + S" (Win + S), which is the same as screen clipping shortcut for onenote on Windows, for Trigger;
+   &lt;img alt="set shotcut key" src="/images/ksnapshot1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;and set "ksnapshot --region" as "Command/URL" for Action. Here I prefer the default behavior to take screenshot of rectangel area. You can just use "ksnapshot" if you like.
+   &lt;img alt="set command" src="/images/ksnapshot2.png" /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That's all. Now you can just press "Win + S" and select a rectangle region to take a screenshot.&lt;/p&gt;</summary></entry><entry><title>install Chinese input method on T61 running Debian</title><link href="http://xiaojianfeng.github.io/code/install-chinese-input-method-on-t61-running-debian.html" rel="alternate"></link><updated>2014-08-13T22:39:27+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-13:code/install-chinese-input-method-on-t61-running-debian.html</id><summary type="html">&lt;p&gt;Now it is much eaiser to install Chinese input method than before.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install task-chinese-s-kde-desktop fcitx-pinyin&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Go to "Settings" --&amp;gt; "System Settings" --&amp;gt; "Local" --&amp;gt; "Input Method" --&amp;gt; "Input Method"
+   --&amp;gt; add "Pinyin" from "Available Input Method" to "Current Input Method". &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Uncheck "Only Show Current Language" if "Pinyin" is not shown in "Available Input Method".&lt;/p&gt;
+&lt;p&gt;That's all. You will be able to use "Ctrl + Space" to use Chinese input method.&lt;/p&gt;</summary></entry><entry><title>create blog on github pages with pelican</title><link href="http://xiaojianfeng.github.io/code/create-blog-on-github-pages-with-pelican.html" rel="alternate"></link><updated>2014-08-05T23:40:15+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2014-08-05:code/create-blog-on-github-pages-with-pelican.html</id><summary type="html">&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;install pelican, ghp-import, and of course git&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create a github repo: xiaojianfeng.github.io, and choose to not initalize with a README.md.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create a directory "technotes", cd into this directory and run "pelican-quickstart"&lt;/p&gt;
+&lt;p&gt;$ mkdir technotes &lt;br /&gt;
+$ cd technotes &lt;br /&gt;
+$ pelican-quickstart &lt;br /&gt;
+Welcome to pelican-quickstart v3.5.0.&lt;/p&gt;
+&lt;p&gt;This script will help you create a new Pelican-based website.&lt;/p&gt;
+&lt;p&gt;Please answer the following questions so this script can generate the files
+needed by Pelican.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Where do you want to create your new web site? [.] 
+What will be the title of this web site? Tech Notes
+Who will be the author of this web site? Xiao Jianfeng
+What will be the default language of this web site? [en] 
+Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) &lt;br /&gt;
+What is your URL prefix? (see above example; no trailing slash) http://xiaojianfeng.github.io
+Do you want to enable article pagination? (Y/n) 
+How many articles per page do you want? [10] 20
+Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) 
+Do you want an auto-reload &amp;amp; simpleHTTP script to assist with theme and site development? (Y/n) 
+Do you want to upload your website using FTP? (y/N) 
+Do you want to upload your website using SSH? (y/N) 
+Do you want to upload your website using Dropbox? (y/N) 
+Do you want to upload your website using S3? (y/N) 
+Do you want to upload your website using Rackspace Cloud Files? (y/N) 
+Do you want to upload your website using GitHub Pages? (y/N) y
+Is this your personal page (username.github.io)? (y/N) y
+Done. Your new project is available at /path/to/technotes&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;initalize git repo in directory on local harddisk&lt;/p&gt;
+&lt;p&gt;$ cd technotes
+$ git remote add origin https://github.com:XiaoJianfeng/xiaojianfeng.github.io.git   &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;start to write blog with markdown, and then run "make github"&lt;/p&gt;
+&lt;p&gt;$ vim content/first_post.md  # and write something &lt;br /&gt;
+$ make github   &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary></entry></feed>
