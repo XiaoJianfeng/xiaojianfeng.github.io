@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/utils.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-03-24T14:10:00+08:00</updated><entry><title>export mail in .ost file to mail.app on Mac</title><link href="http://xiaojianfeng.github.io/utils/export-mail-in-ost-file-to-mailapp-on-mac.html" rel="alternate"></link><updated>2015-03-24T14:10:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-03-24:utils/export-mail-in-ost-file-to-mailapp-on-mac.html</id><summary type="html">&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;export mail in .ost file to mbox file (the file may not end with .mbox).  &lt;/p&gt;
+&lt;p&gt;readpst -j 3 outlook.ost &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mail.app --&amp;gt; File --&amp;gt; import mailboxes, and select the files generated in step 1.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That's all.&lt;/p&gt;</summary><category term="Mac"></category></entry></feed>
