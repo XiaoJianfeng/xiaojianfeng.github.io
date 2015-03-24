@@ -171,7 +171,23 @@ select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fa
 <p>gzip -c &lt; tmp_output &gt; output.fq.gz &amp;</p>
 </li>
 <li>
-<p>in sqlite3, output to to ...</p></li></ul> </div><!-- /.entry-content -->
+<p>in sqlite3, output to to named pipe</p>
+<p>.output tmp_output
+[SELECT ...]</p>
+</li>
+<li>
+<p>it is possible to set .output to a pipe from within sqlite3,</p>
+<p>.output '| gzip -c &gt; output.fq.gz'
+[SELECT ...]</p>
+</li>
+</ul>
+<h2>[2014-08-12 21:14:52]</h2>
+<h3>the task is more complicated than I have expected. here is another bug</h3>
+<p>The sequences in .bam file for two reads of a pair are on the same strand. However, for 
+paired-end reads, one read is on forward stand, and the other one is on reverse strand.
+So one of them should be mapped to another strand (reverse complement).</p>
+<p>In bam2fq.sh, the first reads are extracted from .bam unchanged. The second reads are all converted to reverse complement with command "tr 'ATGC' 'TACG' | rev".</p>
+<p><a href="https://github.com/XiaoJianfeng/ibl/blob/master/util/bam2fq.sh">bam2fq.sh</a> is updated.</p> </div><!-- /.entry-content -->
 
                                 <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/bioinf/convert-bam-file-to-fastq.html" rel="bookmark" title="Permalink to convert bam file to fastq">Read more <i class="icon-arrow-right"></i></a></div>
 
@@ -204,9 +220,6 @@ select distinct "@"||left.qname||"/2", seq, '+', qual from left join fastq on fa
 
 
 <h4>Tags</h4>
-	<ul>
-	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mac.html">Mac</a></li>
-</ul>
 
 
 <nav class="widget">
