@@ -5,7 +5,7 @@
 &lt;p&gt;readpst -j 3 outlook.ost &lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;mail.app --&amp;gt; File --&amp;gt; import mailboxes, and select the files generated in step 1.&lt;/p&gt;
+&lt;p&gt;mail.app --&amp;gt; File --&amp;gt; import mailboxes, and select the folder generated in step 1.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;That's all.&lt;/p&gt;</summary></entry></feed>
+&lt;p&gt;That's all. Your emails in the ost file will be imported into a directory under "on my Mac".&lt;/p&gt;</summary></entry></feed>

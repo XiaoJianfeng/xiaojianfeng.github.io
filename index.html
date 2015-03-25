@@ -52,6 +52,74 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/install-docker-on-mac-os-x-1010.html" rel="bookmark" title="Permalink to install docker on Mac OS X 10.10">install docker on Mac OS X 10.10</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-03-25T13:46:00+08:00"> Wed 25 March 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <ol>
+<li>
+<p>install boot2docker </p>
+<p>Go to https://github.com/boot2docker/osx-installer/releases, and download boot2docker v1.5.0.</p>
+<p>The docker and boot2docker binaries are in /usr/local/bin which you can access from your terminal. </p>
+</li>
+<li>
+<p>launch boot2docker.app, which will open a terminal window. And run "docker run hello-world" to check if the installation succeeds or not.</p>
+</li>
+<li>
+<p>You can upgrade your existing Boot2Docker VM without data loss by running:  boot2docker upgrade</p>
+</li>
+<li>
+<p>Create a new Boot2Docker VM.</p>
+<p>boot2docker init</p>
+<p>This will create a new virtual machine on "~/VirtualBox VMs/boot2docker-vm". You only need to run this command once.</p>
+</li>
+<li>
+<p>start boot2docker VM.</p>
+<p>boot2docker start</p>
+</li>
+<li>
+<p>display the environment variables for docker</p>
+<blockquote>
+<p>boot2docker shellinit
+Writing /Users/username/.boot2docker/certs/boot2docker-vm/ca.pem  <br />
+Writing /Users/username/.boot2docker/certs/boot2docker-vm/cert.pem  <br />
+Writing /Users/username/.boot2docker/certs/boot2docker-vm/key.pem  <br />
+    export DOCKER_CERT_PATH=/Users/username/.boot2docker/certs/boot2docker-vm  <br />
+    export DOCKER_TLS_VERIFY=1  <br />
+    export DOCKER_HOST=tcp://192.168.59.103:2376    </p>
+</blockquote>
+</li>
+<li>
+<p>if "env | grep docker" doesn't show 3 settings, you should set variables for docker.</p>
+<blockquote>
+<p>$(boot2docker shellinit)</p>
+</blockquote>
+</li>
+<li>
+<p>start to work with docker.</p>
+</li>
+<li>
+<p>close the boot2docker image.</p>
+<blockquote>
+<p>boot2docker stop</p>
+</blockquote>
+</li>
+</ol> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/install-docker-on-mac-os-x-1010.html" rel="bookmark" title="Permalink to install docker on Mac OS X 10.10">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/utils/export-mail-in-ost-file-to-mailapp-on-mac.html" rel="bookmark" title="Permalink to export mail in .ost file to mail.app on Mac">export mail in .ost file to mail.app on Mac</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-03-24T14:10:00+08:00"> Tue 24 March 2015 </abbr>
@@ -59,7 +127,16 @@
                                     <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
                                     </address>
                                 </footer><!-- /.post-info -->
-                                <div class="entry-content">  </div><!-- /.entry-content -->
+                                <div class="entry-content"> <ol>
+<li>
+<p>export mail in .ost file to mbox file (the file may not end with .mbox).  </p>
+<p>readpst -j 3 outlook.ost </p>
+</li>
+<li>
+<p>mail.app --&gt; File --&gt; import mailboxes, and select the folder generated in step 1.</p>
+</li>
+</ol>
+<p>That's all. Your emails in the ost file will be imported into a directory under "on my Mac".</p> </div><!-- /.entry-content -->
 
                                 <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/utils/export-mail-in-ost-file-to-mailapp-on-mac.html" rel="bookmark" title="Permalink to export mail in .ost file to mail.app on Mac">Read more <i class="icon-arrow-right"></i></a></div>
 
