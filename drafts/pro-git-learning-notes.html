@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>pro git learning notes</title>
+        <meta charset="utf-8" />
+        <link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Full Atom Feed" />
+        <link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/pygment.css" />
+
+        <script src="http://xiaojianfeng.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="http://xiaojianfeng.github.io/">Tech Notes <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="http://xiaojianfeng.github.io/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="http://xiaojianfeng.github.io/drafts/pro-git-learning-notes.html" rel="bookmark"
+                   title="Permalink to pro git learning notes">pro git learning notes</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2015-03-25T22:52:00+08:00">
+                Wed 25 March 2015
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>1 从现有仓库克隆</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/grit.git</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/grit.git mygrit</span>
+</pre></div>
+
+
+<p>2 .gitignore</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">cat</span> <span class="o">~/</span><span class="p">.</span><span class="n">gitignore</span>
+<span class="o">*~</span>
+</pre></div>
+
+
+<p>3 撤消操作</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="err">修改最后一次提交</span>
+
+  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="o">--</span><span class="nx">amend</span>
+
+  <span class="err">如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行</span> <span class="o">--</span><span class="nx">amend</span> <span class="err">提交：</span>
+
+  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="na">-m</span> <span class="s1">&#39;initial commit&#39;</span>  
+  <span class="err">$</span> <span class="nx">git</span> <span class="nb">add</span> <span class="nx">forgotten_file</span>  
+  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="o">--</span><span class="nx">amend</span>
+
+<span class="o">*</span> <span class="err">取消已经暂存的文件</span> <span class="o">-</span> <span class="err">其实，</span><span class="nx">git</span> <span class="nb">status</span> <span class="err">的命令输出已经告诉了我们该怎么做</span>
+
+  <span class="err">$</span> <span class="nx">git</span> <span class="nb">add</span> <span class="nx">.</span>  
+  <span class="err">$</span> <span class="nx">git</span> <span class="nb">status</span>  
+  <span class="k">On</span> <span class="nx">branch</span> <span class="nx">master</span>  
+  <span class="nx">Changes</span> <span class="k">to</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">:</span>  
+  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">unstage</span><span class="p">)</span>
+
+       <span class="nx">modified</span><span class="p">:</span>   <span class="nx">README.txt</span>  
+   <span class="nx">modified</span><span class="p">:</span>   <span class="nx">benchmarks.rb</span>    
+  <span class="err">$</span> <span class="nx">git</span> <span class="nb">reset</span> <span class="nb">HEAD</span> <span class="nx">benchmarks.rb</span>  
+  <span class="nx">Unstaged</span> <span class="nx">changes</span> <span class="nx">after</span> <span class="nb">reset</span><span class="p">:</span>   
+  <span class="nx">M</span>       <span class="nx">benchmarks.rb</span>
+
+<span class="o">*</span> <span class="err">取消对文件的修改</span> <span class="o">-</span> <span class="nx">git</span> <span class="nb">status</span> <span class="err">同样提示了具体的撤消方法</span>
+
+  <span class="nx">Changes</span> <span class="ow">not</span> <span class="nx">staged</span> <span class="nb">for</span> <span class="nx">commit</span><span class="p">:</span>  
+  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">update</span> <span class="nx">what</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">)</span>   
+  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">discard</span> <span class="n">changes</span> <span class="k">in</span> <span class="nx">working</span> <span class="nx">directory</span><span class="p">)</span>
+
+      <span class="nx">modified</span><span class="p">:</span>   <span class="nx">benchmarks.rb</span>
+
+ <span class="err">$</span> <span class="nx">git</span> <span class="nx">checkout</span> <span class="o">--</span> <span class="nx">benchmarks.rb</span>  
+ <span class="err">$</span> <span class="nx">git</span> <span class="nb">status</span>  
+ <span class="k">On</span> <span class="nx">branch</span> <span class="nx">master</span>  
+ <span class="nx">Changes</span> <span class="k">to</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">:</span>  
+ <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">unstage</span><span class="p">)</span>
+
+     <span class="nx">modified</span><span class="p">:</span>   <span class="nx">README.txt</span>
+
+ <span class="err">任何已经提交到</span> <span class="nx">Git</span> <span class="err">的都可以被恢复。即便在已经删除的分支中的提交，或者用</span> <span class="o">--</span><span class="nx">amend</span> <span class="err">重新改写的提交，都可以被恢复（关于数据恢复的内容见第九章）。所以，你可能失去的数据，仅限于没有提交过的，对</span> <span class="nx">Git</span> <span class="err">来说它们就像从未存在过一样。</span>
+</pre></div>
+
+
+<p>4 远程仓库的使用</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="err">查看当前的远程库</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span>  
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+
+<span class="o">*</span> <span class="err">添加远程仓库</span> <span class="o">-</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="p">[</span><span class="n">shortname</span><span class="p">]</span> <span class="p">[</span><span class="n">url</span><span class="p">]</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span>  
+  <span class="n">origin</span>  
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">pb</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit.git  </span>
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>  
+  <span class="n">origin</span>  <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
+  <span class="n">pb</span>  <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit.git</span>
+
+  <span class="err">现在可以用字符串</span> <span class="n">pb</span> <span class="err">指代对应的仓库地址了。比如说，要抓取所有</span> <span class="n">Paul</span> <span class="err">有的，但本地仓库没有的信息，可以运行</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">pb</span><span class="err">：</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">pb</span>  
+  <span class="n">remote</span><span class="o">:</span> <span class="n">Counting</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="n">remote</span><span class="o">:</span> <span class="n">Compressing</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">41</span><span class="o">/</span><span class="mi">41</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="n">remote</span><span class="o">:</span> <span class="n">Total</span> <span class="mi">44</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">24</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">1</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">0</span><span class="p">)</span>  
+  <span class="n">Unpacking</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">44</span><span class="o">/</span><span class="mi">44</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="n">From</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit  </span>
+   <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">master</span>     <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">/</span><span class="n">master</span>  
+   <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">ticgit</span>     <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">/</span><span class="n">ticgit</span>
+
+<span class="o">*</span> <span class="err">从远程仓库抓取数据</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">fetch</span> <span class="p">[</span><span class="n">remote</span><span class="o">-</span><span class="n">name</span><span class="p">]</span>
+
+  <span class="err">如果是克隆了一个仓库，此命令会自动将远程仓库归于</span> <span class="n">origin</span> <span class="err">名下。所以，</span><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="err">会抓取从你上次克隆以来别人上传到此远程仓库中的所有更新（或是上次</span> <span class="n">fetch</span> <span class="err">以来别人提交的更新）。有一点很重要，需要记住，</span><span class="n">fetch</span> <span class="err">命令只是将远端的数据拉到本地仓库，并不自动合并到当前工作分支，只有当你确实准备好了，才能手工合并。</span>
+
+  <span class="err">如果设置了某个分支用于跟踪某个远端仓库的分支（参见下节及第三章的内容），可以使用</span> <span class="n">git</span> <span class="n">pull</span> <span class="err">命令自动抓取数据下来，然后将远端分支自动合并到本地仓库中当前分支。在日常工作中我们经常这么用，既快且好。实际上，默认情况下</span> <span class="n">git</span> <span class="n">clone</span> <span class="err">命令本质上就是自动创建了本地的</span> <span class="n">master</span> <span class="err">分支用于跟踪远程仓库中的</span> <span class="n">master</span> <span class="err">分支（假设远程仓库确实有</span> <span class="n">master</span> <span class="err">分支）。所以一般我们运行</span> <span class="n">git</span> <span class="n">pull</span><span class="err">，目的都是要从原始克隆的远端仓库中抓取数据后，合并到工作目录中的当前分支。</span>
+
+<span class="o">*</span> <span class="err">推送数据到远程仓库</span> <span class="o">-</span> <span class="n">git</span> <span class="n">push</span> <span class="p">[</span><span class="n">remote</span><span class="o">-</span><span class="n">name</span><span class="p">]</span> <span class="p">[</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="p">]</span>
+
+  <span class="err">如果要把本地的</span> <span class="n">master</span> <span class="err">分支推送到</span> <span class="n">origin</span> <span class="err">服务器上（再次说明下，克隆操作会自动使用默认的</span> <span class="n">master</span> <span class="err">和</span> <span class="n">origin</span> <span class="err">名字），可以运行下面的命令：</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
+
+  <span class="err">只有在所克隆的服务器上有写权限，或者同一时刻没有其他人在推数据，这条命令才会如期完成任务。如果在你推数据前，已经有其他人推送了若干更新，那你的推送操作就会被驳回。你必须先把他们的更新抓取到本地，合并到自己的项目中，然后才可以再次推送</span>
+
+<span class="o">*</span> <span class="err">查看远程仓库信息</span> <span class="o">-</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">show</span> <span class="p">[</span><span class="n">remote</span><span class="o">-</span><span class="n">name</span><span class="p">]</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">show</span> <span class="n">origin</span>  
+  <span class="o">*</span> <span class="n">remote</span> <span class="n">origin</span>  
+    <span class="n">URL</span><span class="o">:</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
+    <span class="n">Remote</span> <span class="n">branch</span> <span class="n">merged</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">git</span> <span class="n">pull</span><span class="err">&#39;</span> <span class="k">while</span> <span class="n">on</span> <span class="n">branch</span> <span class="n">master</span>  
+     <span class="n">master</span>  
+    <span class="n">Tracked</span> <span class="n">remote</span> <span class="n">branches</span>  
+     <span class="n">master</span>  
+     <span class="n">ticgit</span>
+
+<span class="o">*</span> <span class="err">远程仓库的删除和重命名</span> <span class="o">-</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">rename</span>
+
+  <span class="err">比如想把</span> <span class="n">pb</span> <span class="err">改成</span> <span class="n">paul</span><span class="err">，可以这么运行：</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">rename</span> <span class="n">pb</span> <span class="n">paul</span>    
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span>    
+  <span class="n">origin</span>    
+  <span class="n">paul</span>
+
+  <span class="err">注意，对远程仓库的重命名，也会使对应的分支名称发生变化，原来的</span> <span class="n">pb</span><span class="o">/</span><span class="n">master</span> <span class="err">分支现在成了</span> <span class="n">paul</span><span class="o">/</span><span class="n">master</span><span class="err">。</span>
+
+  <span class="err">碰到远端仓库服务器迁移，或者原来的克隆镜像不再使用，又或者某个参与者不再贡献代码，那么需要移除对应的远端仓库，可以运行</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">rm</span> <span class="err">命令：</span>
+
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">rm</span> <span class="n">paul</span>  
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span>  
+  <span class="n">origin</span>
+</pre></div>
+            </div><!-- /.entry-content -->
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="http://xiaojianfeng.github.io/bioinf/index.html">bioinf</a></li>
+		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
+		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+		<li><a href="http://xiaojianfeng.github.io/utils/index.html">utils</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+    <li><a href="https://github.com/xiaojianfeng">github</a></li>
+    <li><a href="#">Another social link</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/plugins.js"></script>
+</body>
+</html>

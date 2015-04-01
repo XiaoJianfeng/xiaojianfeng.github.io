@@ -53,6 +53,34 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/run-job-with-at-on-mac.html" rel="bookmark" title="Permalink to run job with at on Mac">run job with at on Mac</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-04-01T11:16:00+08:00"> Wed 01 April 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>"at" on Mac is run by atrun, which is invoked by launchd. The problem is atrun is not running by default.</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">atrun</span> <span class="n">utility</span> <span class="n">runs</span> <span class="n">commands</span> <span class="n">queued</span> <span class="n">by</span> <span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span>  <span class="n">It</span> <span class="n">is</span> <span class="n">invoked</span> <span class="n">periodically</span> <span class="n">by</span> <span class="n">launchd</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="n">as</span> <span class="n">specified</span> <span class="n">in</span> <span class="n">the</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">atrun</span><span class="p">.</span><span class="n">plist</span> <span class="n">property</span> <span class="n">list</span><span class="p">.</span>  <span class="n">By</span> <span class="k">default</span> <span class="n">the</span> <span class="n">property</span> <span class="n">list</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">Disabled</span> <span class="n">key</span> <span class="n">set</span> <span class="n">to</span> <span class="nb">true</span><span class="p">,</span> <span class="n">so</span> <span class="n">atrun</span> <span class="n">is</span> <span class="n">never</span> <span class="n">invoked</span><span class="p">.</span>
+
+<span class="n">Execute</span> <span class="n">the</span> <span class="n">following</span> <span class="n">command</span> <span class="n">as</span> <span class="n">root</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">atrun</span><span class="o">:</span>  
+    <span class="n">launchctl</span> <span class="n">load</span> <span class="o">-</span><span class="n">w</span> <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span><span class="o">/</span><span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">atrun</span><span class="p">.</span><span class="n">plist</span>
+</pre></div>
+
+
+<p>After that, you can use "at" to submit job on Mac.</p> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/run-job-with-at-on-mac.html" rel="bookmark" title="Permalink to run job with at on Mac">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/install-docker-on-mac-os-x-1010.html" rel="bookmark" title="Permalink to install docker on Mac OS X 10.10">install docker on Mac OS X 10.10</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-03-25T13:46:00+08:00"> Wed 25 March 2015 </abbr>
