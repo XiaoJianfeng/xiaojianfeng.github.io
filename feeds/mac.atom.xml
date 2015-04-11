@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-04-11T11:55:00+08:00</updated><entry><title>disable local backup of timemachine</title><link href="http://xiaojianfeng.github.io/mac/disable-local-backup-of-timemachine.html" rel="alternate"></link><updated>2015-04-11T11:55:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-11:mac/disable-local-backup-of-timemachine.html</id><summary type="html">&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Finder -&amp;gt; goto "/Volumes" will see a backup disk&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;"sudo tmutil disablelocal" will disable local cache of time machine&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;"sudo tmutil enablelocal" will enable it again&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary></entry></feed>
