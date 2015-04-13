@@ -52,6 +52,38 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="bookmark" title="Permalink to if you don't want your hostname to be modifed by DHCP">if you don't want your hostname to be modifed by DHCP</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-04-13T23:36:00+08:00"> Mon 13 April 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>It can be annoying to see my hostname being modifed each time I connect to a different WIFI. It is because the hostname was never set.</p>
+<div class="highlight"><pre>&gt; username@bogon[s002] ~&gt; scutil --get HostName 
+&gt; HostName: not set
+</pre></div>
+
+
+<p>So we just need to set the hostname:</p>
+<div class="highlight"><pre>&gt; username@bogon[s002] ~&gt; sudo scutil --set HostName &quot;new_hostname&quot;  
+&gt; Password:  
+&gt; username@bogon[s002] ~&gt; scutil --get HostName              
+&gt; new_hostname  
+&gt; username@bogon[s002] ~&gt;
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="bookmark" title="Permalink to if you don't want your hostname to be modifed by DHCP">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/disable-local-backup-of-timemachine.html" rel="bookmark" title="Permalink to disable local backup of timemachine">disable local backup of timemachine</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-04-11T11:55:00+08:00"> Sat 11 April 2015 </abbr>

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-04-11T11:55:00+08:00</updated><entry><title>disable local backup of timemachine</title><link href="http://xiaojianfeng.github.io/mac/disable-local-backup-of-timemachine.html" rel="alternate"></link><updated>2015-04-11T11:55:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-11:mac/disable-local-backup-of-timemachine.html</id><summary type="html">&lt;ul&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-04-13T23:36:00+08:00</updated><entry><title>if you don't want your hostname to be modifed by DHCP</title><link href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="alternate"></link><updated>2015-04-13T23:36:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-13:mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html</id><summary type="html">&lt;p&gt;It can be annoying to see my hostname being modifed each time I connect to a different WIFI. It is because the hostname was never set.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; username@bogon[s002] ~&amp;gt; scutil --get HostName 
+&amp;gt; HostName: not set
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So we just need to set the hostname:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; username@bogon[s002] ~&amp;gt; sudo scutil --set HostName &amp;quot;new_hostname&amp;quot;  
+&amp;gt; Password:  
+&amp;gt; username@bogon[s002] ~&amp;gt; scutil --get HostName              
+&amp;gt; new_hostname  
+&amp;gt; username@bogon[s002] ~&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>disable local backup of timemachine</title><link href="http://xiaojianfeng.github.io/mac/disable-local-backup-of-timemachine.html" rel="alternate"></link><updated>2015-04-11T11:55:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-11:mac/disable-local-backup-of-timemachine.html</id><summary type="html">&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Finder -&amp;gt; goto "/Volumes" will see a backup disk&lt;/p&gt;
 &lt;/li&gt;
