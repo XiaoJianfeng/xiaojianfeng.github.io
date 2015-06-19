@@ -53,6 +53,49 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/case-insenstivity-on-mac-os-x.html" rel="bookmark" title="Permalink to case insenstivity on MAC OS X">case insenstivity on MAC OS X</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-05-07T09:28:00+08:00"> Thu 07 May 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>http://apple.stackexchange.com/questions/22297/is-bash-in-osx-case-insensitive</p>
+<div class="highlight"><pre>HFS+ (the Mac filesystem) is usually configured to be case insensitive but case preserving. This means that the file system will consider foo and FoO to be the same, but when you create a new file it will remember which letters where capitalized and which were not.
+
+When you format a disk with HFS+ you can chose whether the file system should case sensitive or not. If you chose to format with UFS (Unix FileSystem) it is always case sensitive, AFAIK.
+
+To check whether a disk is case sensitive, run:
+
+diskutil info &lt;device&gt;
+
+For example:
+
+diskutil info disk0s2
+
+Look for the Name: line. If it reads something like Mac OS Extended (Case-sensitive, Journaled) it means that it is case-sensitive. If it just reads Mac OS Extended (without the Case-sensitive) then it is only case preserving but not case sensitive.
+</pre></div>
+
+
+<p>On my computer:</p>
+<div class="highlight"><pre>&gt; diskutil info /dev/disk1 | grep Name
+Device / Media Name:      Macintosh HD
+Volume Name:              Macintosh HD
+Name (User Visible):      Mac OS Extended (Journaled)
+&gt;
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/mac/case-insenstivity-on-mac-os-x.html" rel="bookmark" title="Permalink to case insenstivity on MAC OS X">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="bookmark" title="Permalink to if you don't want your hostname to be modifed by DHCP">if you don't want your hostname to be modifed by DHCP</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-04-13T23:36:00+08:00"> Mon 13 April 2015 </abbr>

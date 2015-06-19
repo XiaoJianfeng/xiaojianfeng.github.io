@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-04-13T23:36:00+08:00</updated><entry><title>if you don't want your hostname to be modifed by DHCP</title><link href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="alternate"></link><updated>2015-04-13T23:36:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-13:mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html</id><summary type="html">&lt;p&gt;It can be annoying to see my hostname being modifed each time I connect to a different WIFI. It is because the hostname was never set.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-05-07T09:28:00+08:00</updated><entry><title>case insenstivity on MAC OS X</title><link href="http://xiaojianfeng.github.io/mac/case-insenstivity-on-mac-os-x.html" rel="alternate"></link><updated>2015-05-07T09:28:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-05-07:mac/case-insenstivity-on-mac-os-x.html</id><summary type="html">&lt;p&gt;http://apple.stackexchange.com/questions/22297/is-bash-in-osx-case-insensitive&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;HFS+ (the Mac filesystem) is usually configured to be case insensitive but case preserving. This means that the file system will consider foo and FoO to be the same, but when you create a new file it will remember which letters where capitalized and which were not.
+
+When you format a disk with HFS+ you can chose whether the file system should case sensitive or not. If you chose to format with UFS (Unix FileSystem) it is always case sensitive, AFAIK.
+
+To check whether a disk is case sensitive, run:
+
+diskutil info &amp;lt;device&amp;gt;
+
+For example:
+
+diskutil info disk0s2
+
+Look for the Name: line. If it reads something like Mac OS Extended (Case-sensitive, Journaled) it means that it is case-sensitive. If it just reads Mac OS Extended (without the Case-sensitive) then it is only case preserving but not case sensitive.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On my computer:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; diskutil info /dev/disk1 | grep Name
+Device / Media Name:      Macintosh HD
+Volume Name:              Macintosh HD
+Name (User Visible):      Mac OS Extended (Journaled)
+&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>if you don't want your hostname to be modifed by DHCP</title><link href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="alternate"></link><updated>2015-04-13T23:36:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-13:mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html</id><summary type="html">&lt;p&gt;It can be annoying to see my hostname being modifed each time I connect to a different WIFI. It is because the hostname was never set.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; username@bogon[s002] ~&amp;gt; scutil --get HostName 
 &amp;gt; HostName: not set
 &lt;/pre&gt;&lt;/div&gt;

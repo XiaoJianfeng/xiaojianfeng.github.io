@@ -52,6 +52,159 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/gnu-make-multiple-targets-in-one-recipe-and-parallel-execution.html" rel="bookmark" title="Permalink to GNU Make - multiple targets in one recipe and parallel execution">GNU Make - multiple targets in one recipe and parallel execution</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-06-19T22:56:00+08:00"> Fri 19 June 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>Inspired by http://stackoverflow.com/questions/19822435/multiple-targets-from-one-recipe-and-parallel-execution.</p>
+<p>很多时候，写makefile的时候，一条rule可以产生多个target，但是这样有一个问题，假如这些target不是pattern rules，make对于其中每一个target，都会运行一次recipe。</p>
+<p>例如：
+    bwa: hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa</p>
+<div class="highlight"><pre>hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa: hg19.fa
+    bwa index -a bwtsw $&lt;
+</pre></div>
+
+
+<p>当执行的时候，无论是否并行，'bwa index'命令都会被执行多次。</p>
+<div class="highlight"><pre>&gt; make -n bwa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+&gt; make -j 5 -n bwa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+bwa index -a bwtsw hg19.fa
+</pre></div>
+
+
+<p>解决的办法有两个。</p>
+<p>第一种是当多个target可以写成pattern rule的时候：</p>
+<div class="highlight"><pre><span class="n">bwa</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
+
+<span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">amb</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">ann</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">pac</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">sa</span><span class="o">:</span> <span class="o">%.</span><span class="n">fa</span>
+      <span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">$</span><span class="o">&lt;</span>
+<span class="o">&gt;</span> <span class="n">make</span> <span class="o">-</span><span class="n">n</span> <span class="n">bwa</span>
+<span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span>
+<span class="o">&gt;</span> <span class="n">make</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">j</span> <span class="mi">4</span> <span class="n">bwa</span>
+<span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span>
+</pre></div>
+
+
+<p>第二种方法是上面提到的网页里面的方法，这个方法适应性更广，适合不能写成pattern rule的情况。</p>
+<div class="highlight"><pre><span class="n">bwa</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
+
+<span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span>
+    <span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">$</span><span class="o">&lt;</span> <span class="o">&amp;&amp;</span> <span class="n">touch</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
+
+<span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span>
+
+<span class="o">&gt;</span> <span class="n">make</span> <span class="o">-</span><span class="n">n</span> <span class="n">bwa</span>
+<span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span> <span class="o">&amp;&amp;</span> <span class="n">touch</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
+<span class="o">&gt;</span> <span class="n">make</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">j</span> <span class="n">bwa</span>
+<span class="n">bwa</span> <span class="n">index</span> <span class="o">-</span><span class="n">a</span> <span class="n">bwtsw</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span> <span class="o">&amp;&amp;</span> <span class="n">touch</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
+</pre></div>
+
+
+<p>解释一下，'hg19.fa.amb: hg19.fa'只把hg19.fa.amb当做target，但是命令'bwa index'生成了所有其余的target，包括hag9.fa.ann等文件，接下来命令'touch'重新改变了剩余几个文件的修改时间，使得它们比hg19.fa.amb更新，于是最后一个rule是已经满足了不需要被执行的。</p>
+<p>进一步改进一下，写成类似函数的形式：</p>
+<div class="highlight"><pre>bwa_obj = hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa
+
+bwa: $(bwa_obj)
+
+first_obj = $(firstword $(bwa_obj))
+rest_obj  = $(wordlist 2,$(words $(bwa_obj)),$(bwa_obj))
+
+$(first_obj): hg19.fa
+    bwa index -a bwtsw hg19.fa &amp;&amp; touch $(rest_obj)
+$(rest_obj): $(first_obj)
+
+&gt; make -n bwa
+bwa index -a bwtsw hg19.fa &amp;&amp; touch hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa
+&gt; make -n -j 5 bwa
+bwa index -a bwtsw hg19.fa &amp;&amp; touch hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/gnu-make-multiple-targets-in-one-recipe-and-parallel-execution.html" rel="bookmark" title="Permalink to GNU Make - multiple targets in one recipe and parallel execution">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/why-slideshare-was-blocked.html" rel="bookmark" title="Permalink to Why slideshare was blocked ...?">Why slideshare was blocked ...?</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-05-09T22:19:00+08:00"> Sat 09 May 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>为什么slideshare也有被封的价值。。。？！</p> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/why-slideshare-was-blocked.html" rel="bookmark" title="Permalink to Why slideshare was blocked ...?">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/case-insenstivity-on-mac-os-x.html" rel="bookmark" title="Permalink to case insenstivity on MAC OS X">case insenstivity on MAC OS X</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-05-07T09:28:00+08:00"> Thu 07 May 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>http://apple.stackexchange.com/questions/22297/is-bash-in-osx-case-insensitive</p>
+<div class="highlight"><pre>HFS+ (the Mac filesystem) is usually configured to be case insensitive but case preserving. This means that the file system will consider foo and FoO to be the same, but when you create a new file it will remember which letters where capitalized and which were not.
+
+When you format a disk with HFS+ you can chose whether the file system should case sensitive or not. If you chose to format with UFS (Unix FileSystem) it is always case sensitive, AFAIK.
+
+To check whether a disk is case sensitive, run:
+
+diskutil info &lt;device&gt;
+
+For example:
+
+diskutil info disk0s2
+
+Look for the Name: line. If it reads something like Mac OS Extended (Case-sensitive, Journaled) it means that it is case-sensitive. If it just reads Mac OS Extended (without the Case-sensitive) then it is only case preserving but not case sensitive.
+</pre></div>
+
+
+<p>On my computer:</p>
+<div class="highlight"><pre>&gt; diskutil info /dev/disk1 | grep Name
+Device / Media Name:      Macintosh HD
+Volume Name:              Macintosh HD
+Name (User Visible):      Mac OS Extended (Journaled)
+&gt;
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/mac/case-insenstivity-on-mac-os-x.html" rel="bookmark" title="Permalink to case insenstivity on MAC OS X">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/mac/if-you-dont-want-your-hostname-to-be-modifed-by-dhcp.html" rel="bookmark" title="Permalink to if you don't want your hostname to be modifed by DHCP">if you don't want your hostname to be modifed by DHCP</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-04-13T23:36:00+08:00"> Mon 13 April 2015 </abbr>
