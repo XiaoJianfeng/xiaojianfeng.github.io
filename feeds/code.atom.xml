@@ -53,7 +53,7 @@ bwa index -a bwtsw hg19.fa
 
 
 &lt;p&gt;解释一下，'hg19.fa.amb: hg19.fa'只把hg19.fa.amb当做target，但是命令'bwa index'生成了所有其余的target，包括hag9.fa.ann等文件，接下来命令'touch'重新改变了剩余几个文件的修改时间，使得它们比hg19.fa.amb更新，于是最后一个rule是已经满足了不需要被执行的。&lt;/p&gt;
-&lt;p&gt;进一步改进一下，写成类似函数的形式：&lt;/p&gt;
+&lt;p&gt;进一步改进一下，写成更通用的形式：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;bwa_obj = hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa
 
 bwa: $(bwa_obj)
