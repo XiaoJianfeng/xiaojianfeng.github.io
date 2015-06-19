@@ -331,14 +331,19 @@ Name (User Visible):      Mac OS Extended (Journaled)
 <p>The docker and boot2docker binaries are in /usr/local/bin which you can access from your terminal. </p>
 </li>
 <li>
-<p>launch boot2docker.app, which will open a terminal window. And run "docker run hello-world" to check if the installation succeeds or not.</p>
+<p>launch boot2docker.app, which will open a terminal window. And run <code>docker run hello-world</code> to check if the installation succeeds or not.</p>
 </li>
 <li>
-<p>You can upgrade your existing Boot2Docker VM without data loss by running:  boot2docker upgrade</p>
+<p>You can upgrade your existing Boot2Docker VM without data loss by running: </p>
+<blockquote>
+<p>boot2docker upgrade</p>
+</blockquote>
 </li>
 <li>
 <p>Create a new Boot2Docker VM.</p>
+<blockquote>
 <p>boot2docker init</p>
+</blockquote>
 <p>This will create a new virtual machine on "~/VirtualBox VMs/boot2docker-vm". You only need to run this command once.</p>
 </li>
 <li>
@@ -352,13 +357,13 @@ Name (User Visible):      Mac OS Extended (Journaled)
 Writing /Users/username/.boot2docker/certs/boot2docker-vm/ca.pem  <br />
 Writing /Users/username/.boot2docker/certs/boot2docker-vm/cert.pem  <br />
 Writing /Users/username/.boot2docker/certs/boot2docker-vm/key.pem  <br />
-    export DOCKER_CERT_PATH=/Users/username/.boot2docker/certs/boot2docker-vm  <br />
-    export DOCKER_TLS_VERIFY=1  <br />
-    export DOCKER_HOST=tcp://192.168.59.103:2376    </p>
+export DOCKER_CERT_PATH=/Users/username/.boot2docker/certs/boot2docker-vm  <br />
+export DOCKER_TLS_VERIFY=1  <br />
+export DOCKER_HOST=tcp://192.168.59.103:2376    </p>
 </blockquote>
 </li>
 <li>
-<p>if "env | grep docker" doesn't show 3 settings, you should set variables for docker.</p>
+<p>if <code>env | grep docker</code> doesn't show 3 settings, you should set variables for docker.</p>
 <blockquote>
 <p>$(boot2docker shellinit)</p>
 </blockquote>
