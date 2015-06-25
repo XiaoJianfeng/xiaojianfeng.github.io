@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/clinical.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-06-25T23:22:00+08:00</updated><entry><title>exome sequencing for newborn screening</title><link href="http://xiaojianfeng.github.io/clinical/exome-sequencing-for-newborn-screening.html" rel="alternate"></link><updated>2015-06-25T23:22:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-06-25:clinical/exome-sequencing-for-newborn-screening.html</id><summary type="html">&lt;p&gt;今天看到一个消息，美国一家叫做Baby Genes的公司准备推广运用全外显子组测序进行新生儿筛查。我觉得这是一个大趋势:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;外显子测序越来越便宜，现在外显子组测序成本大概四千人民币，再过几年假如价格再降一些，大家也更有钱一些，价格就越来越不是问题了。&lt;/li&gt;
+&lt;li&gt;外显子组数据分析，包括方法和临床表型与基因型关联信息的数据集的进步，使得外显子组测序变得越来越容易，门槛越来越低&lt;/li&gt;
+&lt;li&gt;外显子组测序能一次性解读绝大部分的遗传病（有一些遗传病还没有找到相关基因，还有一些遗传病的相关的区域不在外显子区域）
+拭目以待。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;另外，复旦儿童医院在2015年的中华询证儿科杂志（？）上发表了一系列的介绍外显子测序临床应用的文章，值得一读。&lt;/p&gt;</summary></entry></feed>
