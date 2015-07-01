@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>GNU make - how to get 2nd or 3rd prerequisite file</title>
+        <meta charset="utf-8" />
+        <link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Full Atom Feed" />
+        <link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="http://xiaojianfeng.github.io/theme/pygment.css" />
+
+        <script src="http://xiaojianfeng.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="http://xiaojianfeng.github.io/">Tech Notes <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="http://xiaojianfeng.github.io/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="bookmark"
+                   title="Permalink to GNU make - how to get 2nd or 3rd prerequisite file">GNU make - how to get 2nd or 3rd prerequisite file</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2015-07-02T00:03:00+08:00">
+                Thu 02 July 2015
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>在写<code>makefile</code>的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。</p>
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> 
+    <span class="o">(</span><span class="n">cat</span> <span class="n">vcf1</span><span class="o">;</span> <span class="n">cat</span> <span class="n">vcf2</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
+</pre></div>
+
+
+<p>简单一点的写法是：</p>
+<div class="highlight"><pre>target： vcf1 vcf2
+    (cat $&lt;; cat $(word 2,$^) | grep -v &#39;#&#39;) | bgzip &gt; $@
+</pre></div>
+
+
+<p>多个依赖文件就有点不太方：</p>
+<div class="highlight"><pre>target： vcf1 vcf2 vcf3
+    (cat $&lt;; cat $(word 2,$^) $(word 3,$^) | grep -v &#39;#&#39;) | bgzip &gt; $@
+</pre></div>
+
+
+<p>这时候可以用 <code>$(filter-out)</code>函数</p>
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> <span class="n">vcf3</span>
+    <span class="o">(</span><span class="n">cat</span> <span class="n">$</span><span class="o">&lt;;</span> <span class="n">cat</span> <span class="n">$</span><span class="o">(</span><span class="n">filter</span><span class="o">-</span><span class="n">out</span> <span class="n">$</span><span class="o">&lt;,</span><span class="n">$</span><span class="o">^)</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
+</pre></div>
+            </div><!-- /.entry-content -->
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="http://xiaojianfeng.github.io/bioinf/index.html">bioinf</a></li>
+		<li><a href="http://xiaojianfeng.github.io/clinical/index.html">clinical</a></li>
+		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
+		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+		<li><a href="http://xiaojianfeng.github.io/mac/index.html">mac</a></li>
+		<li><a href="http://xiaojianfeng.github.io/utils/index.html">utils</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+    <li><a href="https://github.com/xiaojianfeng">github</a></li>
+    <li><a href="#">Another social link</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="http://xiaojianfeng.github.io/theme/js/plugins.js"></script>
+</body>
+</html>

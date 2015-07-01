@@ -52,6 +52,47 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="bookmark" title="Permalink to GNU make - how to get 2nd or 3rd prerequisite file">GNU make - how to get 2nd or 3rd prerequisite file</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-07-02T00:03:00+08:00"> Thu 02 July 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>在写<code>makefile</code>的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。</p>
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> 
+    <span class="o">(</span><span class="n">cat</span> <span class="n">vcf1</span><span class="o">;</span> <span class="n">cat</span> <span class="n">vcf2</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
+</pre></div>
+
+
+<p>简单一点的写法是：</p>
+<div class="highlight"><pre>target： vcf1 vcf2
+    (cat $&lt;; cat $(word 2,$^) | grep -v &#39;#&#39;) | bgzip &gt; $@
+</pre></div>
+
+
+<p>多个依赖文件就有点不太方：</p>
+<div class="highlight"><pre>target： vcf1 vcf2 vcf3
+    (cat $&lt;; cat $(word 2,$^) $(word 3,$^) | grep -v &#39;#&#39;) | bgzip &gt; $@
+</pre></div>
+
+
+<p>这时候可以用 <code>$(filter-out)</code>函数</p>
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> <span class="n">vcf3</span>
+    <span class="o">(</span><span class="n">cat</span> <span class="n">$</span><span class="o">&lt;;</span> <span class="n">cat</span> <span class="n">$</span><span class="o">(</span><span class="n">filter</span><span class="o">-</span><span class="n">out</span> <span class="n">$</span><span class="o">&lt;,</span><span class="n">$</span><span class="o">^)</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="bookmark" title="Permalink to GNU make - how to get 2nd or 3rd prerequisite file">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/clinical/exome-sequencing-for-newborn-screening.html" rel="bookmark" title="Permalink to exome sequencing for newborn screening">exome sequencing for newborn screening</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-06-25T23:22:00+08:00"> Thu 25 June 2015 </abbr>
@@ -86,8 +127,8 @@
                                     <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
                                     </address>
                                 </footer><!-- /.post-info -->
-                                <div class="entry-content"> <p>Inspired by http://stackoverflow.com/questions/19822435/multiple-targets-from-one-recipe-and-parallel-execution.</p>
-<p>很多时候，写makefile的时候，一条rule可以产生多个target，但是这样有一个问题，假如这些target不是pattern rules，make对于其中每一个target，都会运行一次recipe。</p>
+                                <div class="entry-content"> <p>Inspired by <code>http://stackoverflow.com/questions/19822435/multiple-targets-from-one-recipe-and-parallel-execution.</code></p>
+<p>很多时候，写<code>makefile</code>的时候，一条rule可以产生多个target，但是这样有一个问题，假如这些target不是pattern rules，make对于其中每一个target，都会运行一次recipe。</p>
 <p>例如：
     bwa: hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa</p>
 <div class="highlight"><pre>hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa: hg19.fa
@@ -95,7 +136,7 @@
 </pre></div>
 
 
-<p>当执行的时候，无论是否并行，'bwa index'命令都会被执行多次。</p>
+<p>当执行的时候，无论是否并行，<code>bwa index</code>命令都会被执行多次。</p>
 <div class="highlight"><pre>&gt; make -n bwa
 bwa index -a bwtsw hg19.fa
 bwa index -a bwtsw hg19.fa
@@ -112,7 +153,7 @@ bwa index -a bwtsw hg19.fa
 
 
 <p>解决的办法有两个。</p>
-<p>第一种是当多个target可以写成pattern rule的时候：</p>
+<p>第一种是当多个target可以写成<code>pattern rule</code>的时候：</p>
 <div class="highlight"><pre><span class="n">bwa</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
 
 <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">amb</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">ann</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">pac</span> <span class="o">%.</span><span class="n">fa</span><span class="o">.</span><span class="na">sa</span><span class="o">:</span> <span class="o">%.</span><span class="n">fa</span>
@@ -124,7 +165,7 @@ bwa index -a bwtsw hg19.fa
 </pre></div>
 
 
-<p>第二种方法是上面提到的网页里面的方法，这个方法适应性更广，适合不能写成pattern rule的情况。</p>
+<p>第二种方法是上面提到的网页里面的方法，这个方法适应性更广，适合不能写成<code>pattern rule</code>的情况。</p>
 <div class="highlight"><pre><span class="n">bwa</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">ann</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">bwt</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">pac</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">sa</span>
 
 <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span><span class="o">.</span><span class="na">amb</span><span class="o">:</span> <span class="n">hg19</span><span class="o">.</span><span class="na">fa</span>
@@ -139,7 +180,7 @@ bwa index -a bwtsw hg19.fa
 </pre></div>
 
 
-<p>解释一下，'hg19.fa.amb: hg19.fa'只把hg19.fa.amb当做target，但是命令'bwa index'生成了所有其余的target，包括hag9.fa.ann等文件，接下来命令'touch'重新改变了剩余几个文件的修改时间，使得它们比hg19.fa.amb更新，于是最后一个rule是已经满足了不需要被执行的。</p>
+<p>解释一下，<code>hg19.fa.amb: hg19.fa</code>只把hg19.fa.amb当做target，但是命令<code>bwa index</code>生成了所有其余的target，包括hag9.fa.ann等文件，接下来命令<code>touch</code>重新改变了剩余几个文件的修改时间，使得它们比hg19.fa.amb更新，于是最后一个rule是已经满足了不需要被执行的。</p>
 <p>进一步改进一下，写成更通用的形式：</p>
 <div class="highlight"><pre>bwa_obj = hg19.fa.amb hg19.fa.ann hg19.fa.bwt hg19.fa.pac hg19.fa.sa
 
