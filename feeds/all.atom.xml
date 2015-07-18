@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-07-19T00:25:00+08:00</updated><entry><title>use alternative mirror for macports</title><link href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="alternate"></link><updated>2015-07-19T00:25:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-19:code/use-alternative-mirror-for-macports.html</id><summary type="html">&lt;p&gt;modify /opt/local/etc/macports/macports.conf&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-07-19T00:25:00+08:00</updated><entry><title>use alternative mirror for macports</title><link href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="alternate"></link><updated>2015-07-19T00:25:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-19:code/use-alternative-mirror-for-macports.html</id><summary type="html">&lt;h3&gt;modify /opt/local/etc/macports/macports.conf&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;# The rsync server for fetching MacPorts base during selfupdate. This
 # setting is NOT used when downloading the ports tree; the sources for
 # the ports tree are set in sources.conf. See
@@ -22,7 +22,7 @@ rsync_dir               macports/base/
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;modify /opt/local/etc/macports/sources.conf&lt;/p&gt;
+&lt;h3&gt;modify /opt/local/etc/macports/sources.conf&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;A&lt;/span&gt; &lt;span class="nx"&gt;list&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="nx"&gt;rsync&lt;/span&gt; &lt;span class="nx"&gt;mirrors&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;available&lt;/span&gt; &lt;span class="nx"&gt;at&lt;/span&gt;
 &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//trac.macports.org/wiki/Mirrors#Portfiles.&lt;/span&gt;
 &lt;span class="err"&gt;#&lt;/span&gt;
