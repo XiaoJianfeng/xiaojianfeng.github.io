@@ -53,6 +53,64 @@
         <div class="eleven columns">
                  <ol id="post-list">
                         <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="bookmark" title="Permalink to use alternative mirror for macports">use alternative mirror for macports</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-07-19T00:25:00+08:00"> Sun 19 July 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <p>modify /opt/local/etc/macports/macports.conf</p>
+<div class="highlight"><pre># The rsync server for fetching MacPorts base during selfupdate. This
+# setting is NOT used when downloading the ports tree; the sources for
+# the ports tree are set in sources.conf. See
+# https://trac.macports.org/wiki/Mirrors#MacPortsSource for a list of
+# available servers.
+#rsync_server           rsync.macports.org
+rsync_server            mirrors.ustc.edu.cn
+# rsync_server          mirror.bit.edu.cn
+
+# Location of MacPorts base sources on rsync_server. If this references
+# a .tar file, a signed .rmd160 file must exist in the same directory
+# and will be used to verify its integrity. See
+# https://trac.macports.org/wiki/Mirrors#MacPortsSource to find the
+# correct rsync_dir for a particular rsync_server.
+#rsync_dir              release/tarballs/base.tar
+# mirrors.ustc.edu.cn
+rsync_dir               macports/base/
+# mirror.bit.edu.cn
+# rsync_dir             macports/release/ports/
+</pre></div>
+
+
+<p>modify /opt/local/etc/macports/sources.conf</p>
+<div class="highlight"><pre><span class="err">#</span> <span class="nx">A</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">rsync</span> <span class="nx">mirrors</span> <span class="nx">is</span> <span class="nx">available</span> <span class="nx">at</span>
+<span class="err">#</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//trac.macports.org/wiki/Mirrors#Portfiles.</span>
+<span class="err">#</span>
+<span class="err">#</span> <span class="nx">If</span> <span class="nx">an</span> <span class="s2">&quot;rsync://&quot;</span> <span class="nx">URL</span> <span class="nx">points</span> <span class="nx">to</span> <span class="nx">a</span> <span class="p">.</span><span class="nx">tar</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">a</span> <span class="nx">signed</span> <span class="p">.</span><span class="nx">rmd160</span> <span class="nx">file</span> <span class="nx">must</span>
+<span class="err">#</span> <span class="nx">exist</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">same</span> <span class="nx">directory</span> <span class="nx">on</span> <span class="nx">the</span> <span class="nx">server</span> <span class="nx">and</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">used</span> <span class="nx">to</span> <span class="nx">verify</span>
+<span class="err">#</span> <span class="nx">its</span> <span class="nx">integrity</span><span class="p">.</span>
+<span class="err">#</span>
+<span class="err">#</span> <span class="nx">For</span> <span class="nx">proper</span> <span class="nx">functionality</span> <span class="nx">of</span> <span class="nx">various</span> <span class="nx">resources</span> <span class="p">(</span><span class="nx">port</span> <span class="nx">groups</span><span class="p">,</span> <span class="nx">mirror</span>
+<span class="err">#</span> <span class="nx">sites</span><span class="p">,</span> <span class="nx">etc</span><span class="p">.),</span> <span class="nx">the</span> <span class="nx">primary</span> <span class="nx">MacPorts</span> <span class="nx">source</span> <span class="nx">must</span> <span class="nx">always</span> <span class="nx">be</span> <span class="nx">tagged</span>
+<span class="err">#</span> <span class="s2">&quot;</span><span class="cp">[</span><span class="nb">default</span><span class="cp">]</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nx">even</span> <span class="k">if</span> <span class="nx">switched</span> <span class="nx">from</span> <span class="nx">the</span> <span class="k">default</span> <span class="s2">&quot;rsync://&quot;</span> <span class="nx">URL</span><span class="p">.</span>
+
+<span class="err">#</span> <span class="nx">rsync</span><span class="o">:</span><span class="c1">//rsync.macports.org/release/tarballs/ports.tar </span><span class="cp">[</span><span class="nb">default</span><span class="cp">]</span><span class="c1"></span>
+<span class="nx">rsync</span><span class="o">:</span><span class="c1">//mirrors.ustc.edu.cn/macports/ports </span><span class="cp">[</span><span class="nb">default</span><span class="cp">]</span><span class="c1"> </span>
+<span class="err">#</span> <span class="nx">rsync</span><span class="o">:</span><span class="c1">//mirror.bit.edu.cn/macports/release/ports/ </span><span class="cp">[</span><span class="nb">default</span><span class="cp">]</span><span class="c1"></span>
+</pre></div> </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="bookmark" title="Permalink to use alternative mirror for macports">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                </div>
+
+
+
+                        </article></li>
+                        <li><article class="hentry">
                                 <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="bookmark" title="Permalink to GNU make - how to get 2nd or 3rd prerequisite file">GNU make - how to get 2nd or 3rd prerequisite file</a></h2> </header>
                                 <footer class="post-info">
                                     <abbr class="published" title="2015-07-02T00:03:00+08:00"> Thu 02 July 2015 </abbr>
@@ -61,7 +119,7 @@
                                     </address>
                                 </footer><!-- /.post-info -->
                                 <div class="entry-content"> <p>在写<code>makefile</code>的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。</p>
-<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> 
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span>
     <span class="o">(</span><span class="n">cat</span> <span class="n">vcf1</span><span class="o">;</span> <span class="n">cat</span> <span class="n">vcf2</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
 </pre></div>
 
@@ -479,7 +537,7 @@ $ make github   </p>
 		<li><a href="http://xiaojianfeng.github.io/bioinf/index.html">bioinf</a></li>
 		<li><a href="http://xiaojianfeng.github.io/clinical/index.html">clinical</a></li>
 		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
-		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+		<li><a href="http://xiaojianfeng.github.io/general/index.html">general</a></li>
 		<li><a href="http://xiaojianfeng.github.io/mac/index.html">mac</a></li>
 		<li><a href="http://xiaojianfeng.github.io/utils/index.html">utils</a></li>
 </ul>

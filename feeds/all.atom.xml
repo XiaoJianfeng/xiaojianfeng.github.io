@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-07-02T00:03:00+08:00</updated><entry><title>GNU make - how to get 2nd or 3rd prerequisite file</title><link href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="alternate"></link><updated>2015-07-02T00:03:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-02:code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html</id><summary type="html">&lt;p&gt;在写&lt;code&gt;makefile&lt;/code&gt;的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vcf1&lt;/span&gt; &lt;span class="n"&gt;vcf2&lt;/span&gt; 
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-07-19T00:25:00+08:00</updated><entry><title>use alternative mirror for macports</title><link href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="alternate"></link><updated>2015-07-19T00:25:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-19:code/use-alternative-mirror-for-macports.html</id><summary type="html">&lt;p&gt;modify /opt/local/etc/macports/macports.conf&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# The rsync server for fetching MacPorts base during selfupdate. This
+# setting is NOT used when downloading the ports tree; the sources for
+# the ports tree are set in sources.conf. See
+# https://trac.macports.org/wiki/Mirrors#MacPortsSource for a list of
+# available servers.
+#rsync_server           rsync.macports.org
+rsync_server            mirrors.ustc.edu.cn
+# rsync_server          mirror.bit.edu.cn
+
+# Location of MacPorts base sources on rsync_server. If this references
+# a .tar file, a signed .rmd160 file must exist in the same directory
+# and will be used to verify its integrity. See
+# https://trac.macports.org/wiki/Mirrors#MacPortsSource to find the
+# correct rsync_dir for a particular rsync_server.
+#rsync_dir              release/tarballs/base.tar
+# mirrors.ustc.edu.cn
+rsync_dir               macports/base/
+# mirror.bit.edu.cn
+# rsync_dir             macports/release/ports/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;modify /opt/local/etc/macports/sources.conf&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;A&lt;/span&gt; &lt;span class="nx"&gt;list&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="nx"&gt;rsync&lt;/span&gt; &lt;span class="nx"&gt;mirrors&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;available&lt;/span&gt; &lt;span class="nx"&gt;at&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//trac.macports.org/wiki/Mirrors#Portfiles.&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;If&lt;/span&gt; &lt;span class="nx"&gt;an&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;rsync://&amp;quot;&lt;/span&gt; &lt;span class="nx"&gt;URL&lt;/span&gt; &lt;span class="nx"&gt;points&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;tar&lt;/span&gt; &lt;span class="nx"&gt;file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="nx"&gt;signed&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;rmd160&lt;/span&gt; &lt;span class="nx"&gt;file&lt;/span&gt; &lt;span class="nx"&gt;must&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;exist&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;same&lt;/span&gt; &lt;span class="nx"&gt;directory&lt;/span&gt; &lt;span class="nx"&gt;on&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;server&lt;/span&gt; &lt;span class="nx"&gt;and&lt;/span&gt; &lt;span class="nx"&gt;will&lt;/span&gt; &lt;span class="nx"&gt;be&lt;/span&gt; &lt;span class="nx"&gt;used&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;verify&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;its&lt;/span&gt; &lt;span class="nx"&gt;integrity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;For&lt;/span&gt; &lt;span class="nx"&gt;proper&lt;/span&gt; &lt;span class="nx"&gt;functionality&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="nx"&gt;various&lt;/span&gt; &lt;span class="nx"&gt;resources&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;port&lt;/span&gt; &lt;span class="nx"&gt;groups&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;mirror&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;sites&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;etc&lt;/span&gt;&lt;span class="p"&gt;.),&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;primary&lt;/span&gt; &lt;span class="nx"&gt;MacPorts&lt;/span&gt; &lt;span class="nx"&gt;source&lt;/span&gt; &lt;span class="nx"&gt;must&lt;/span&gt; &lt;span class="nx"&gt;always&lt;/span&gt; &lt;span class="nx"&gt;be&lt;/span&gt; &lt;span class="nx"&gt;tagged&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;default&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;even&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nx"&gt;switched&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;rsync://&amp;quot;&lt;/span&gt; &lt;span class="nx"&gt;URL&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;rsync&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//rsync.macports.org/release/tarballs/ports.tar &lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;default&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;&lt;/span&gt;
+&lt;span class="nx"&gt;rsync&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//mirrors.ustc.edu.cn/macports/ports &lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;default&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="c1"&gt; &lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;rsync&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//mirror.bit.edu.cn/macports/release/ports/ &lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;default&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>GNU make - how to get 2nd or 3rd prerequisite file</title><link href="http://xiaojianfeng.github.io/code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html" rel="alternate"></link><updated>2015-07-02T00:03:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-02:code/gnu-make-how-to-get-2nd-or-3rd-prerequisite-file.html</id><summary type="html">&lt;p&gt;在写&lt;code&gt;makefile&lt;/code&gt;的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vcf1&lt;/span&gt; &lt;span class="n"&gt;vcf2&lt;/span&gt;
     &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;vcf1&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;vcf2&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;#&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;bgzip&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 

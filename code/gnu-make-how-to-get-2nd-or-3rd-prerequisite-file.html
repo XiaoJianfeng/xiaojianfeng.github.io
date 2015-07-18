@@ -65,7 +65,7 @@
             </footer><!-- /.post-info -->
             <div class="entry-content">
               <p>在写<code>makefile</code>的时候，有时候依赖文件有多个，并且需要分别使用。例如，需要把两个vcf合并（两个vcf文件是对应不同染色体的，所以直接cat就可以，但是对于第二个vcf文件不需要开头的行首为‘#’的meta信息部分。</p>
-<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span> 
+<div class="highlight"><pre><span class="n">target</span><span class="o">:</span> <span class="n">vcf1</span> <span class="n">vcf2</span>
     <span class="o">(</span><span class="n">cat</span> <span class="n">vcf1</span><span class="o">;</span> <span class="n">cat</span> <span class="n">vcf2</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">|</span> <span class="n">bgzip</span> <span class="o">&gt;</span> <span class="n">$</span><span class="err">@</span>
 </pre></div>
 
@@ -103,7 +103,7 @@
 		<li><a href="http://xiaojianfeng.github.io/bioinf/index.html">bioinf</a></li>
 		<li><a href="http://xiaojianfeng.github.io/clinical/index.html">clinical</a></li>
 		<li><a href="http://xiaojianfeng.github.io/code/index.html">code</a></li>
-		<li><a href="http://xiaojianfeng.github.io/category/general.html">general</a></li>
+		<li><a href="http://xiaojianfeng.github.io/general/index.html">general</a></li>
 		<li><a href="http://xiaojianfeng.github.io/mac/index.html">mac</a></li>
 		<li><a href="http://xiaojianfeng.github.io/utils/index.html">utils</a></li>
 </ul>
