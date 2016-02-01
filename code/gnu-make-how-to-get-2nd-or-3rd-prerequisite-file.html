@@ -76,7 +76,7 @@
 </pre></div>
 
 
-<p>多个依赖文件就有点不太方：</p>
+<p>多个依赖文件就有点不太方便：</p>
 <div class="highlight"><pre>target： vcf1 vcf2 vcf3
     (cat $&lt;; cat $(word 2,$^) $(word 3,$^) | grep -v &#39;#&#39;) | bgzip &gt; $@
 </pre></div>
@@ -110,6 +110,11 @@
 
 
 <h4>Tags</h4>
+	<ul>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/shell.html">shell</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mutation.html">mutation</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mac.html">mac</a></li>
+</ul>
 
 
 <nav class="widget">

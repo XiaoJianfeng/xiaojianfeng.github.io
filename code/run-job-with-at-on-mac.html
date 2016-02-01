@@ -65,10 +65,10 @@
             </footer><!-- /.post-info -->
             <div class="entry-content">
               <p>"at" on Mac is run by atrun, which is invoked by launchd. The problem is atrun is not running by default.</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">atrun</span> <span class="n">utility</span> <span class="n">runs</span> <span class="n">commands</span> <span class="n">queued</span> <span class="n">by</span> <span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span>  <span class="n">It</span> <span class="n">is</span> <span class="n">invoked</span> <span class="n">periodically</span> <span class="n">by</span> <span class="n">launchd</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="n">as</span> <span class="n">specified</span> <span class="n">in</span> <span class="n">the</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">atrun</span><span class="p">.</span><span class="n">plist</span> <span class="n">property</span> <span class="n">list</span><span class="p">.</span>  <span class="n">By</span> <span class="k">default</span> <span class="n">the</span> <span class="n">property</span> <span class="n">list</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">Disabled</span> <span class="n">key</span> <span class="n">set</span> <span class="n">to</span> <span class="nb">true</span><span class="p">,</span> <span class="n">so</span> <span class="n">atrun</span> <span class="n">is</span> <span class="n">never</span> <span class="n">invoked</span><span class="p">.</span>
+<div class="highlight"><pre>The atrun utility runs commands queued by at(1).  It is invoked periodically by launchd(8) as specified in the com.apple.atrun.plist property list.  By default the property list contains the Disabled key set to true, so atrun is never invoked.
 
-<span class="n">Execute</span> <span class="n">the</span> <span class="n">following</span> <span class="n">command</span> <span class="n">as</span> <span class="n">root</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">atrun</span><span class="o">:</span>  
-    <span class="n">launchctl</span> <span class="n">load</span> <span class="o">-</span><span class="n">w</span> <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span><span class="o">/</span><span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">atrun</span><span class="p">.</span><span class="n">plist</span>
+Execute the following command as root to enable atrun:  
+    launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
 </pre></div>
 
 
@@ -97,6 +97,11 @@
 
 
 <h4>Tags</h4>
+	<ul>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/shell.html">shell</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mutation.html">mutation</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mac.html">mac</a></li>
+</ul>
 
 
 <nav class="widget">

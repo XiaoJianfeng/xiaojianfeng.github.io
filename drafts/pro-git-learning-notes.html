@@ -65,60 +65,60 @@
             </footer><!-- /.post-info -->
             <div class="entry-content">
               <p>1 从现有仓库克隆</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/grit.git</span>
+<div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/schacon/grit.git
 
-<span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/grit.git mygrit</span>
+<span class="nv">$ </span>git clone git://github.com/schacon/grit.git mygrit
 </pre></div>
 
 
 <p>2 .gitignore</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">cat</span> <span class="o">~/</span><span class="p">.</span><span class="n">gitignore</span>
-<span class="o">*~</span>
+<div class="highlight"><pre><span class="nv">$ </span>cat ~/.gitignore
+*~
 </pre></div>
 
 
 <p>3 撤消操作</p>
-<div class="highlight"><pre><span class="o">*</span> <span class="err">修改最后一次提交</span>
+<div class="highlight"><pre>* 修改最后一次提交
 
-  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="o">--</span><span class="nx">amend</span>
+  $ git commit --amend
 
-  <span class="err">如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行</span> <span class="o">--</span><span class="nx">amend</span> <span class="err">提交：</span>
+  如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行 --amend 提交：
 
-  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="na">-m</span> <span class="s1">&#39;initial commit&#39;</span>  
-  <span class="err">$</span> <span class="nx">git</span> <span class="nb">add</span> <span class="nx">forgotten_file</span>  
-  <span class="err">$</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="o">--</span><span class="nx">amend</span>
+  $ git commit -m &#39;initial commit&#39;  
+  $ git add forgotten_file  
+  $ git commit --amend
 
-<span class="o">*</span> <span class="err">取消已经暂存的文件</span> <span class="o">-</span> <span class="err">其实，</span><span class="nx">git</span> <span class="nb">status</span> <span class="err">的命令输出已经告诉了我们该怎么做</span>
+* 取消已经暂存的文件 - 其实，git status 的命令输出已经告诉了我们该怎么做
 
-  <span class="err">$</span> <span class="nx">git</span> <span class="nb">add</span> <span class="nx">.</span>  
-  <span class="err">$</span> <span class="nx">git</span> <span class="nb">status</span>  
-  <span class="k">On</span> <span class="nx">branch</span> <span class="nx">master</span>  
-  <span class="nx">Changes</span> <span class="k">to</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">:</span>  
-  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">unstage</span><span class="p">)</span>
+  $ git add .  
+  $ git status  
+  On branch master  
+  Changes to be committed:  
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
 
-       <span class="nx">modified</span><span class="p">:</span>   <span class="nx">README.txt</span>  
-   <span class="nx">modified</span><span class="p">:</span>   <span class="nx">benchmarks.rb</span>    
-  <span class="err">$</span> <span class="nx">git</span> <span class="nb">reset</span> <span class="nb">HEAD</span> <span class="nx">benchmarks.rb</span>  
-  <span class="nx">Unstaged</span> <span class="nx">changes</span> <span class="nx">after</span> <span class="nb">reset</span><span class="p">:</span>   
-  <span class="nx">M</span>       <span class="nx">benchmarks.rb</span>
+       modified:   README.txt  
+   modified:   benchmarks.rb    
+  $ git reset HEAD benchmarks.rb  
+  Unstaged changes after reset:   
+  M       benchmarks.rb
 
-<span class="o">*</span> <span class="err">取消对文件的修改</span> <span class="o">-</span> <span class="nx">git</span> <span class="nb">status</span> <span class="err">同样提示了具体的撤消方法</span>
+* 取消对文件的修改 - git status 同样提示了具体的撤消方法
 
-  <span class="nx">Changes</span> <span class="ow">not</span> <span class="nx">staged</span> <span class="nb">for</span> <span class="nx">commit</span><span class="p">:</span>  
-  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">update</span> <span class="nx">what</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">)</span>   
-  <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">discard</span> <span class="n">changes</span> <span class="k">in</span> <span class="nx">working</span> <span class="nx">directory</span><span class="p">)</span>
+  Changes not staged for commit:  
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)   
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
 
-      <span class="nx">modified</span><span class="p">:</span>   <span class="nx">benchmarks.rb</span>
+      modified:   benchmarks.rb
 
- <span class="err">$</span> <span class="nx">git</span> <span class="nx">checkout</span> <span class="o">--</span> <span class="nx">benchmarks.rb</span>  
- <span class="err">$</span> <span class="nx">git</span> <span class="nb">status</span>  
- <span class="k">On</span> <span class="nx">branch</span> <span class="nx">master</span>  
- <span class="nx">Changes</span> <span class="k">to</span> <span class="nx">be</span> <span class="nx">committed</span><span class="p">:</span>  
- <span class="p">(</span><span class="nx">use</span> <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> <span class="k">to</span> <span class="nx">unstage</span><span class="p">)</span>
+ $ git checkout -- benchmarks.rb  
+ $ git status  
+ On branch master  
+ Changes to be committed:  
+ (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
 
-     <span class="nx">modified</span><span class="p">:</span>   <span class="nx">README.txt</span>
+     modified:   README.txt
 
- <span class="err">任何已经提交到</span> <span class="nx">Git</span> <span class="err">的都可以被恢复。即便在已经删除的分支中的提交，或者用</span> <span class="o">--</span><span class="nx">amend</span> <span class="err">重新改写的提交，都可以被恢复（关于数据恢复的内容见第九章）。所以，你可能失去的数据，仅限于没有提交过的，对</span> <span class="nx">Git</span> <span class="err">来说它们就像从未存在过一样。</span>
+ 任何已经提交到 Git 的都可以被恢复。即便在已经删除的分支中的提交，或者用 --amend 重新改写的提交，都可以被恢复（关于数据恢复的内容见第九章）。所以，你可能失去的数据，仅限于没有提交过的，对 Git 来说它们就像从未存在过一样。
 </pre></div>
 
 
@@ -132,19 +132,19 @@
 
   <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span>  
   <span class="n">origin</span>  
-  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">pb</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit.git  </span>
+  <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">pb</span> <span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/paulboone/ticgit.git  </span>
   <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>  
-  <span class="n">origin</span>  <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
-  <span class="n">pb</span>  <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit.git</span>
+  <span class="n">origin</span>  <span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
+  <span class="n">pb</span>  <span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/paulboone/ticgit.git</span>
 
   <span class="err">现在可以用字符串</span> <span class="n">pb</span> <span class="err">指代对应的仓库地址了。比如说，要抓取所有</span> <span class="n">Paul</span> <span class="err">有的，但本地仓库没有的信息，可以运行</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">pb</span><span class="err">：</span>
 
   <span class="err">$</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">pb</span>  
-  <span class="n">remote</span><span class="o">:</span> <span class="n">Counting</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>  
-  <span class="n">remote</span><span class="o">:</span> <span class="n">Compressing</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">41</span><span class="o">/</span><span class="mi">41</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
-  <span class="n">remote</span><span class="o">:</span> <span class="n">Total</span> <span class="mi">44</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">24</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">1</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">0</span><span class="p">)</span>  
-  <span class="n">Unpacking</span> <span class="n">objects</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">44</span><span class="o">/</span><span class="mi">44</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
-  <span class="n">From</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/paulboone/ticgit  </span>
+  <span class="nl">remote</span><span class="p">:</span> <span class="n">Counting</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">58</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="nl">remote</span><span class="p">:</span> <span class="n">Compressing</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">41</span><span class="o">/</span><span class="mi">41</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="nl">remote</span><span class="p">:</span> <span class="n">Total</span> <span class="mi">44</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">24</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">1</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">0</span><span class="p">)</span>  
+  <span class="n">Unpacking</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">44</span><span class="o">/</span><span class="mi">44</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>  
+  <span class="n">From</span> <span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/paulboone/ticgit  </span>
    <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">master</span>     <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">/</span><span class="n">master</span>  
    <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">ticgit</span>     <span class="o">-&gt;</span> <span class="n">pb</span><span class="o">/</span><span class="n">ticgit</span>
 
@@ -168,7 +168,7 @@
 
   <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">show</span> <span class="n">origin</span>  
   <span class="o">*</span> <span class="n">remote</span> <span class="n">origin</span>  
-    <span class="n">URL</span><span class="o">:</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
+    <span class="nl">URL</span><span class="p">:</span> <span class="nl">git</span><span class="p">:</span><span class="c1">//github.com/schacon/ticgit.git  </span>
     <span class="n">Remote</span> <span class="n">branch</span> <span class="n">merged</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">git</span> <span class="n">pull</span><span class="err">&#39;</span> <span class="k">while</span> <span class="n">on</span> <span class="n">branch</span> <span class="n">master</span>  
      <span class="n">master</span>  
     <span class="n">Tracked</span> <span class="n">remote</span> <span class="n">branches</span>  
@@ -216,6 +216,11 @@
 
 
 <h4>Tags</h4>
+	<ul>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/shell.html">shell</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mutation.html">mutation</a></li>
+	    <li class="tag-4"><a href="http://xiaojianfeng.github.io/tag/mac.html">mac</a></li>
+</ul>
 
 
 <nav class="widget">

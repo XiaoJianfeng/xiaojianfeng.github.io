@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 
-        <title>disable local backup of timemachine</title>
+        <title>Tech Notes - shell</title>
         <meta charset="utf-8" />
         <link href="http://xiaojianfeng.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Full Atom Feed" />
-        <link href="http://xiaojianfeng.github.io/feeds/mac.atom.xml" type="application/atom+xml" rel="alternate" title="Tech Notes Categories Atom Feed" />
 
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
@@ -43,43 +42,52 @@
               </ul>
             </div>
 
-<section id="content" class="body">
+<section id="content">
+
+
 
    <div class="row">
+
+
         <div class="eleven columns">
+                 <ol id="post-list">
+                        <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="http://xiaojianfeng.github.io/code/a-few-unix-and-shell-tips.html" rel="bookmark" title="Permalink to a few Unix and Shell tips">a few Unix and Shell tips</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="2015-11-03T20:47:00+08:00"> Tue 03 November 2015 </abbr>
+                                    <address class="vcard author">By 
+                                    <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
+                                    </address>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> <h2>automatically attach to a tmux session via SSH</h2>
+<div class="highlight"><pre>alias alias_name=&#39;ssh username@servername -t &quot;tmux attach || tmux&quot; &#39;
+
+-t Force pseudo-tty allocation. This can be used to execute arbitrary
+   screen-based programs on a remote machine, which can be very useful, e.g., when
+   implementing menu services.
+
+&quot;tmux attach&quot; tries to attach a tmux session. and if it fails, &quot;tmux&quot; will create a new session.
+</pre></div>
 
 
-            <header>
-              <h2 class="entry-title">
-                <a href="http://xiaojianfeng.github.io/mac/disable-local-backup-of-timemachine.html" rel="bookmark"
-                   title="Permalink to disable local backup of timemachine">disable local backup of timemachine</a></h2>
-           
-            </header>
-            <footer class="post-info">
-              <abbr class="published" title="2015-04-11T11:55:00+08:00">
-                Sat 11 April 2015
-              </abbr>
-              <address class="vcard author">By 
-                <a class="url fn" href="http://xiaojianfeng.github.io/author/xiao-jianfeng.html"> Xiao Jianfeng</a>
-              </address>
-            </footer><!-- /.post-info -->
-            <div class="entry-content">
-              <ul>
-<li>
-<p>Finder -&gt; goto "/Volumes" will see a backup disk</p>
-</li>
-<li>
-<p>"sudo tmutil disablelocal" will disable local cache of time machine</p>
-</li>
-<li>
-<p>"sudo tmutil enablelocal" will enable it again</p>
-</li>
-</ul>
-            </div><!-- /.entry-content -->
+<h2>to be continued.</h2> </div><!-- /.entry-content -->
 
+                                <div class="medium primary btn"><a href="http://xiaojianfeng.github.io/code/a-few-unix-and-shell-tips.html" rel="bookmark" title="Permalink to a few Unix and Shell tips">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                        <span>Tagged as : </span>
+                                            <a class="danger label" href="http://xiaojianfeng.github.io/tag/shell.html">shell</a>
+                                </div>
+
+
+
+                        </article></li>
+                </ol><!-- /#posts-list -->
 
         </div><!-- /.eleven.columns -->
-
+        
 <div class="three columns">
 
 <h4>Pages</h4>
@@ -116,8 +124,10 @@
 
 </div> </div><!-- /.row -->
 
-
-</section>
+<p class="paginator">
+    Page 1 / 1
+</p>
+</section><!-- /#content -->
 
        </div><!-- /.row -->
     </div><!-- /.container -->

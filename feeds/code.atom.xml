@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2015-07-19T00:25:00+08:00</updated><entry><title>use alternative mirror for macports</title><link href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="alternate"></link><updated>2015-07-19T00:25:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-19:code/use-alternative-mirror-for-macports.html</id><summary type="html">&lt;h3&gt;modify /opt/local/etc/macports/macports.conf&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tech Notes</title><link href="http://xiaojianfeng.github.io/" rel="alternate"></link><link href="http://xiaojianfeng.github.io/feeds/code.atom.xml" rel="self"></link><id>http://xiaojianfeng.github.io/</id><updated>2016-01-28T13:43:00+08:00</updated><entry><title>install perl environment on Mac</title><link href="http://xiaojianfeng.github.io/code/install-perl-environment-on-mac.html" rel="alternate"></link><updated>2016-01-28T13:43:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2016-01-28:code/install-perl-environment-on-mac.html</id><summary type="html">&lt;p&gt;i. install perlbrew&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; override the default installation directory (&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/perl5) in .zshrc&lt;/span&gt;
+&lt;span class="x"&gt;export PERLBREW_ROOT=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/.local/perl5&lt;/span&gt;
+&lt;span class="x"&gt;export PERLBREW_CPAN_MIRROR=http://mirrors.ustc.edu.cn/CPAN/&lt;/span&gt;
+
+&lt;span class="x"&gt;&amp;gt; curl -L http://xrl.us/perlbrewinstall | bash&lt;/span&gt;
+
+&lt;span class="x"&gt;&amp;gt; echo &amp;quot;source ~/.local/perl5/perlbrew/etc/bashrc&amp;quot; &amp;gt;&amp;gt; ~/.zshrc&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ii. install perl and cpanm&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; perlbrew available
+&amp;gt; perlbrew install stable
+&amp;gt; perlbrew list
+&amp;gt; perlbrew switch perl-5.22.1
+&amp;gt; perlbrew install install-cpanm
+
+&amp;gt; alias cpanm=&amp;#39;cpanm --from http://mirrors.ustc.edu.cn/CPAN/ &amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;iii. install perl packages&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; cpanm Bio::SeqIO
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="mac"></category></entry><entry><title>a few Unix and Shell tips</title><link href="http://xiaojianfeng.github.io/code/a-few-unix-and-shell-tips.html" rel="alternate"></link><updated>2015-11-03T20:47:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-11-03:code/a-few-unix-and-shell-tips.html</id><summary type="html">&lt;h2&gt;automatically attach to a tmux session via SSH&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;alias alias_name=&amp;#39;ssh username@servername -t &amp;quot;tmux attach || tmux&amp;quot; &amp;#39;
+
+-t Force pseudo-tty allocation. This can be used to execute arbitrary
+   screen-based programs on a remote machine, which can be very useful, e.g., when
+   implementing menu services.
+
+&amp;quot;tmux attach&amp;quot; tries to attach a tmux session. and if it fails, &amp;quot;tmux&amp;quot; will create a new session.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;to be continued.&lt;/h2&gt;</summary><category term="shell"></category></entry><entry><title>use alternative mirror for macports</title><link href="http://xiaojianfeng.github.io/code/use-alternative-mirror-for-macports.html" rel="alternate"></link><updated>2015-07-19T00:25:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-07-19:code/use-alternative-mirror-for-macports.html</id><summary type="html">&lt;h3&gt;modify /opt/local/etc/macports/macports.conf&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;# The rsync server for fetching MacPorts base during selfupdate. This
 # setting is NOT used when downloading the ports tree; the sources for
 # the ports tree are set in sources.conf. See
@@ -49,7 +84,7 @@ rsync_dir               macports/base/
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;多个依赖文件就有点不太方：&lt;/p&gt;
+&lt;p&gt;多个依赖文件就有点不太方便：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;target： vcf1 vcf2 vcf3
     (cat $&amp;lt;; cat $(word 2,$^) $(word 3,$^) | grep -v &amp;#39;#&amp;#39;) | bgzip &amp;gt; $@
 &lt;/pre&gt;&lt;/div&gt;
@@ -131,10 +166,10 @@ bwa index -a bwtsw hg19.fa &amp;amp;&amp;amp; touch hg19.fa.ann hg19.fa.bwt hg19
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Why slideshare was blocked ...?</title><link href="http://xiaojianfeng.github.io/code/why-slideshare-was-blocked.html" rel="alternate"></link><updated>2015-05-09T22:19:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-05-09:code/why-slideshare-was-blocked.html</id><summary type="html">&lt;p&gt;为什么slideshare也有被封的价值。。。？！&lt;/p&gt;</summary></entry><entry><title>how to re-attach a lftp process</title><link href="http://xiaojianfeng.github.io/code/how-to-re-attach-a-lftp-process.html" rel="alternate"></link><updated>2015-04-05T17:00:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-05:code/how-to-re-attach-a-lftp-process.html</id><summary type="html">&lt;p&gt;lftp很好的一个功能是退出之后，正在运行的任务会自动提交到后台继续运行。&lt;/p&gt;
 &lt;p&gt;但是有时候想重新连接这些任务，lftp提供了一个很好的命令attach。首先用ps查到要连接的任务的pid;
 然后打开lftp，运行“attach The_PID”。搞定。&lt;/p&gt;</summary></entry><entry><title>run job with at on Mac</title><link href="http://xiaojianfeng.github.io/code/run-job-with-at-on-mac.html" rel="alternate"></link><updated>2015-04-01T11:16:00+08:00</updated><author><name>Xiao Jianfeng</name></author><id>tag:xiaojianfeng.github.io,2015-04-01:code/run-job-with-at-on-mac.html</id><summary type="html">&lt;p&gt;"at" on Mac is run by atrun, which is invoked by launchd. The problem is atrun is not running by default.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;atrun&lt;/span&gt; &lt;span class="n"&gt;utility&lt;/span&gt; &lt;span class="n"&gt;runs&lt;/span&gt; &lt;span class="n"&gt;commands&lt;/span&gt; &lt;span class="n"&gt;queued&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;  &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;invoked&lt;/span&gt; &lt;span class="n"&gt;periodically&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;launchd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="n"&gt;specified&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apple&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;atrun&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plist&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;By&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="n"&gt;contains&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;Disabled&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;so&lt;/span&gt; &lt;span class="n"&gt;atrun&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;never&lt;/span&gt; &lt;span class="n"&gt;invoked&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;The atrun utility runs commands queued by at(1).  It is invoked periodically by launchd(8) as specified in the com.apple.atrun.plist property list.  By default the property list contains the Disabled key set to true, so atrun is never invoked.
 
-&lt;span class="n"&gt;Execute&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;following&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;enable&lt;/span&gt; &lt;span class="n"&gt;atrun&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  
-    &lt;span class="n"&gt;launchctl&lt;/span&gt; &lt;span class="n"&gt;load&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;LaunchDaemons&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apple&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;atrun&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plist&lt;/span&gt;
+Execute the following command as root to enable atrun:  
+    launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
 &lt;/pre&gt;&lt;/div&gt;
 
 
